@@ -36,7 +36,7 @@ public class PlayerJumpHandler : MonoBehaviour
 
     void RotatePlayer()
     {
-        transform.Rotate(0, 0, -rotationSpeed * Time.deltaTime); 
+        //transform.Rotate(0, 0, -rotationSpeed * Time.deltaTime); 
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

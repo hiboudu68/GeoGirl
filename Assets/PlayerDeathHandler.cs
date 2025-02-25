@@ -4,24 +4,14 @@ using UnityEngine;
 
 public class PlayerDeathHandler : MonoBehaviour
 {
+    private Player player;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = GetComponent<Player>();
     }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-     void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("dead"))
-        {
-            Die(); 
-        }
-    }
-
+    
       void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("dead"))

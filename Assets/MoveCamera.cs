@@ -1,11 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MoveCamera : MonoBehaviour
 {
     public Player player;
+    public Transform target;
+    public Vector3 offset = new Vector3(5f, 0f, -10f);
+    public float smoothSpeed = 5f;
 
     void Start()
     {
@@ -17,22 +17,14 @@ public class MoveCamera : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (player != null)
+        if (player != null && player.currentMode != null && player.currentMode.IsActive)
         {
             transform.position = new Vector3(
                 player.transform.position.x,
-                player.transform.position.y,
+                player.transform.position.y + offset.y,
                 -10
             );
         }
-        else
-        {
-            RestartGame();
-        }
     }
 
-    void RestartGame()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
 }

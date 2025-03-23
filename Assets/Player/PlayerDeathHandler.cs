@@ -6,7 +6,7 @@ public class PlayerDeathHandler : MonoBehaviour
 {
     private Player player;
     public PlayerController deadPrefab;
-      public GameManager gameManager; 
+    public GameManager gameManager; 
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +25,7 @@ public class PlayerDeathHandler : MonoBehaviour
 
     void Die()
     {
-        Debug.Log("DEAD");
         player.SetControlMode(deadPrefab);
+        player.Restart();
     }
 }

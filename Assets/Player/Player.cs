@@ -32,9 +32,17 @@ public class Player : MonoBehaviour
         }
         
         if(prefabMode == null) return;
-        
-        currentMode = GameObject.Instantiate(prefabMode.gameObject).GetComponent<PlayerController>();
+
+        var newInstance = GameObject.Instantiate(prefabMode.gameObject);
+
+        currentMode = newInstance.GetComponent<PlayerController>();
         currentMode.transform.parent = transform;
         currentMode.transform.localPosition = Vector3.zero;
+        
+        currentMode.enabled = true;
+        newInstance.GetComponent<PlayerDeathHandler>().enabled = true;
+        newInstance.GetComponent<BoxCollider2D>().enabled  = true;
+
+
     }
 }

@@ -231,10 +231,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1949674049057285988}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: caf39bb2b0b6544b5bfd602ffcec1351, type: 3}
+  m_Script: {fileID: 11500000, guid: b683dcc66791e744e8e60a4d98239e7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deadPrefab: {fileID: 7272114219414453813, guid: eaac0768d3bc04853bd6c0f89e12e8ab, type: 3}
+  deadPrefab: {fileID: 5244865641019022185}
+  gameManager: {fileID: 0}
 --- !u!114 &5244865641019022185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,7 +245,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1949674049057285988}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c46776e36547a4255b47760c4ad9ab68, type: 3}
+  m_Script: {fileID: 11500000, guid: f9e921fba4b975e45b03d38e8eb54f76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsActive: 1

@@ -22,7 +22,7 @@ public class NavigationScript : MonoBehaviour
 
     public void Editor()
     {
-        SceneManager.LoadScene("MenuLevel");
+        SceneManager.LoadScene("Editor");
     }
 
     public void Import()

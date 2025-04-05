@@ -133,7 +133,7 @@ public class BuildingCreator : Singleton<BuildingCreator>
             {
                 case PlaceType.Single:
                 default:
-                    DrawItem();
+                    DrawItem(defaultMap, currentGridPosition, tileBase);
                     break;
                 case PlaceType.Rectangle:
                     RectangleRenderer();
@@ -174,13 +174,18 @@ public class BuildingCreator : Singleton<BuildingCreator>
         {
             for (int y = bounds.yMin; y < bounds.yMax; y++)
             {
-                tilemap.SetTile(new Vector3Int(x,y,0), tileBase);
+                DrawItem(tilemap, new Vector3Int(x,y,0), tileBase);
             }
         }
     }
 
-    private void DrawItem()
+    private void DrawItem(Tilemap map, Vector3Int position, TileBase tileBase)
     {
-        defaultMap.SetTile(currentGridPosition, tileBase);
+        if (selectedObj.GetType() == typeof(BuildingTool)) {
+            map.SetTile(position, null);
+        }
+        else {
+            map.SetTile(position, tileBase);
+        }
     }
 }

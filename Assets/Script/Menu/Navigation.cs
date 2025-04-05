@@ -25,6 +25,11 @@ public class NavigationScript : MonoBehaviour
         SceneManager.LoadScene("Editor");
     }
 
+    public void TestLevelEditor()
+    {
+        SceneManager.LoadScene("EditorPlay");
+    }
+
     public void Import()
     {
         SceneManager.LoadScene("MenuLevel");

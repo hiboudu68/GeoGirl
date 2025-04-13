@@ -53,6 +53,24 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Esc"",
+                    ""type"": ""Button"",
+                    ""id"": ""257b31ee-0964-4d77-955c-f1e229684ceb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DragCamera"",
+                    ""type"": ""Button"",
+                    ""id"": ""f6cf689c-9d56-4cc8-a3f9-06ee32f67d80"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -88,6 +106,28 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""MousePosition"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a7539d3b-b342-4a83-ab13-26c97c5924af"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Esc"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a46e74a7-bb0d-4108-ad35-8d20fcb90fb5"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DragCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -99,6 +139,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Editor_MouseLeftClick = m_Editor.FindAction("MouseLeftClick", throwIfNotFound: true);
         m_Editor_MouseRightClick = m_Editor.FindAction("MouseRightClick", throwIfNotFound: true);
         m_Editor_MousePosition = m_Editor.FindAction("MousePosition", throwIfNotFound: true);
+        m_Editor_Esc = m_Editor.FindAction("Esc", throwIfNotFound: true);
+        m_Editor_DragCamera = m_Editor.FindAction("DragCamera", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -163,6 +205,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Editor_MouseLeftClick;
     private readonly InputAction m_Editor_MouseRightClick;
     private readonly InputAction m_Editor_MousePosition;
+    private readonly InputAction m_Editor_Esc;
+    private readonly InputAction m_Editor_DragCamera;
     public struct EditorActions
     {
         private @PlayerInput m_Wrapper;
@@ -170,6 +214,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @MouseLeftClick => m_Wrapper.m_Editor_MouseLeftClick;
         public InputAction @MouseRightClick => m_Wrapper.m_Editor_MouseRightClick;
         public InputAction @MousePosition => m_Wrapper.m_Editor_MousePosition;
+        public InputAction @Esc => m_Wrapper.m_Editor_Esc;
+        public InputAction @DragCamera => m_Wrapper.m_Editor_DragCamera;
         public InputActionMap Get() { return m_Wrapper.m_Editor; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -188,6 +234,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @MousePosition.started += instance.OnMousePosition;
             @MousePosition.performed += instance.OnMousePosition;
             @MousePosition.canceled += instance.OnMousePosition;
+            @Esc.started += instance.OnEsc;
+            @Esc.performed += instance.OnEsc;
+            @Esc.canceled += instance.OnEsc;
+            @DragCamera.started += instance.OnDragCamera;
+            @DragCamera.performed += instance.OnDragCamera;
+            @DragCamera.canceled += instance.OnDragCamera;
         }
 
         private void UnregisterCallbacks(IEditorActions instance)
@@ -201,6 +253,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @MousePosition.started -= instance.OnMousePosition;
             @MousePosition.performed -= instance.OnMousePosition;
             @MousePosition.canceled -= instance.OnMousePosition;
+            @Esc.started -= instance.OnEsc;
+            @Esc.performed -= instance.OnEsc;
+            @Esc.canceled -= instance.OnEsc;
+            @DragCamera.started -= instance.OnDragCamera;
+            @DragCamera.performed -= instance.OnDragCamera;
+            @DragCamera.canceled -= instance.OnDragCamera;
         }
 
         public void RemoveCallbacks(IEditorActions instance)
@@ -223,5 +281,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnMouseLeftClick(InputAction.CallbackContext context);
         void OnMouseRightClick(InputAction.CallbackContext context);
         void OnMousePosition(InputAction.CallbackContext context);
+        void OnEsc(InputAction.CallbackContext context);
+        void OnDragCamera(InputAction.CallbackContext context);
     }
 }

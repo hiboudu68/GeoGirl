@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -25,9 +26,11 @@ public class NavigationScript : MonoBehaviour
         SceneManager.LoadScene("Editor");
     }
 
-    public void TestLevelEditor()
+    public void LevelToEditor()
     {
-        SceneManager.LoadScene("EditorPlay");
+        Time.timeScale = 1;
+        ModifEditorHandler.IsModif = true;
+        SceneManager.LoadScene("Editor");
     }
 
     public void Import()
@@ -37,6 +40,7 @@ public class NavigationScript : MonoBehaviour
 
     public void RestartLevel()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

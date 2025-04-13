@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Square2
   m_EditorClassIdentifier: 
   tileBase: {fileID: 11400000, guid: c89470c1685404440b3031ab1a7d75be, type: 2}
-  placeType: 1
+  placeType: 0

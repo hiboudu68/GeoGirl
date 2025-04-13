@@ -6,7 +6,8 @@ using UnityEngine.Tilemaps;
 public enum PlaceType
 {
     Single,
-    Rectangle
+    Rectangle,
+    Unique
 }
 
 [CreateAssetMenu (fileName ="Buildable", menuName ="BuildingObjects/Create Buildable")]

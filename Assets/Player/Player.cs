@@ -13,6 +13,18 @@ public class Player : MonoBehaviour
     {
         Instance = this;
         startPosition = transform.position;
+        if(defaultMode == null){
+            foreach (Transform childTransform in this.transform)
+            {
+                defaultMode = childTransform.GetComponent<PlayerController>();
+            }
+        }
+        if(currentMode == null){
+            foreach (Transform childTransform in this.transform)
+            {
+                currentMode = childTransform.GetComponent<PlayerController>();
+            }
+        }
         Restart();
     }
     public void Restart(){

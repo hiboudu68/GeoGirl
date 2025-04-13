@@ -86,7 +86,6 @@ public class BuildingCreator : Singleton<BuildingCreator>
     {
         if (selectedObj != null && !EventSystem.current.IsPointerOverGameObject())
         {
-
             if (ctx.phase == InputActionPhase.Started)
             {
                 holdActive = true;
@@ -138,8 +137,24 @@ public class BuildingCreator : Singleton<BuildingCreator>
                 case PlaceType.Rectangle:
                     RectangleRenderer();
                     break;
+                case PlaceType.Unique:
+                    if (!ItemAlredayExist(defaultMap, tileBase)){
+                        DrawItem(defaultMap, currentGridPosition, tileBase);
+                    }
+                    break;
             }
         }
+    }
+
+    private bool ItemAlredayExist(Tilemap map, TileBase tileBase){
+        foreach (var item in map.GetTilesBlock(map.cellBounds))
+        {
+            if (item == tileBase) {
+                return true;
+            } 
+        }
+
+        return false;
     }
 
     private void HandleDrawRelease()

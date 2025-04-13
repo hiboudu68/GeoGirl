@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8017c5c0aea0ec44acf168c5c0566a9, type: 3}
   m_Name: Triangle
   m_EditorClassIdentifier: 
-  tileBase: {fileID: 11400000, guid: da7c0a6aa78ade44aa074f2ae9aa3953, type: 2}
-  placeType: 1
+  tileBase: {fileID: 11400000, guid: 107e723625d7f1d4eafdf97798e57b9d, type: 2}
+  placeType: 0

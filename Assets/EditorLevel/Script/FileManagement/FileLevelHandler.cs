@@ -3,13 +3,25 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
 
 public class FileLevelHandler : MonoBehaviour
 {
-    [SerializeField] string filename = "tilemapTest.json";
+    public string filenameSave = "tilemapTemp.json";
+    string filename = "tilemapTemp.json";
     //[SerializeField] Dictionary<TileBase, GameObject> linkTilePrefab = new();
-    [SerializeField] List<TileBase> tilemaps = new();
-    [SerializeField] List<GameObject> prefabs = new();
+    public List<TileBase> tilemaps = new();
+    public List<GameObject> prefabs = new();
+    public GameObject objectsContainer;
+    public GameObject playerContainer;
+    PlayerInput playerInput;
+    public GameObject pause;
+    
+    private void Awake() {
+        playerInput = new PlayerInput();
+    }
 
     private void Start()
     {
@@ -44,9 +56,14 @@ public class FileLevelHandler : MonoBehaviour
                 {
                     Vector3 vector = map.CellToWorld(tile.position);
                     GameObject newGameObj = Instantiate(prefabs[index], vector, Quaternion.identity);
-
-                    //this.gameObject.AddComponent(newGameObj.GetType());
-                    //GetComponent<Canvas>().AddComponent<Image>();
+                    
+                    if (index == 3) {
+                        newGameObj.transform.parent = playerContainer.transform;
+                        playerContainer.transform.position = vector;
+                    }
+                    else{
+                        newGameObj.transform.parent = objectsContainer.transform;
+                    }
                 }
                 else
                 {
@@ -55,6 +72,28 @@ public class FileLevelHandler : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void OnEnable()
+    {
+        playerInput.Enable();
+        playerInput.Editor.Esc.performed += OnEscClick;
+    }
+
+    private void OnDisable()
+    {
+        playerInput.Disable();
+        playerInput.Editor.Esc.performed -= OnEscClick;
+    }
+    
+    private void OnEscClick(InputAction.CallbackContext ctx) {
+        Time.timeScale = 0;
+        pause.SetActive(true);
+    }
+
+    public void Continue() {
+        Time.timeScale = 1;
+        pause.SetActive(false);
     }
 
 }

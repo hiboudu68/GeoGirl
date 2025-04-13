@@ -110,21 +110,25 @@ public class EditorManager : MonoBehaviour
         foreach(string line in lines) {
             for(int i = 0; i < line.Length; i++){
                 TileBase tile = null;
+                Vector3 rotation = new(0, 0, 0);
                 switch(line[i]) {
                     case '#':
                         tile = tileBases[0];
                         break;
                     case '<':
                         tile = tileBases[1];
+                        rotation = new(0, 0, 90);
                         break;
                     case '>':
                         tile = tileBases[1];
+                        rotation = new(0, 0, 270);
                         break;
                     case '^':
                         tile = tileBases[1];
                         break;
                     case 'v':
                         tile = tileBases[1];
+                        rotation = new(0, 0, 180);
                         break;
                     case 'S':
                         tile = tileBases[2];
@@ -136,11 +140,10 @@ public class EditorManager : MonoBehaviour
                         break; 
                 }
 
-
                 if (tile != null) {
                     if (AssetDatabase.TryGetGUIDAndLocalFileIdentifier(tile, out string guid, out long localId))
                     {
-                        TileInfo ti = new(tile, new(i, numLine, 0), guid);
+                        TileInfo ti = new(tile, new(i, numLine, 0), guid, rotation);
                         mapData.tiles.Add(ti);
                     }
                     else {
@@ -192,7 +195,7 @@ public class EditorManager : MonoBehaviour
                     if (tile != null) {
                         if (AssetDatabase.TryGetGUIDAndLocalFileIdentifier(tile, out string guid, out long localId))
                         {
-                            TileInfo ti = new(tile, pos, guid);
+                            TileInfo ti = new(tile, pos, guid, map.Value.GetTransformMatrix(pos).rotation.eulerAngles );
                             mapData.tiles.Add(ti);
                         }
                         else {
@@ -244,7 +247,14 @@ public class EditorManager : MonoBehaviour
                         }
                     }
 
-                    map.SetTile(tile.position, tileBase);
+                    var tileTransform = Matrix4x4.Rotate(Quaternion.Euler(tile.rotation));
+                    var tileChangeData = new TileChangeData{
+                        position = tile.position,
+                        tile = tileBase,
+                        color = Color.white,
+                        transform = tileTransform
+                    };
+                    map.SetTile(tileChangeData, false);
                 }
             }
         }
@@ -265,11 +275,13 @@ public class TileInfo
     public TileBase tileBase;
     public string guidFromAssetDB;
     public Vector3Int position;
+    public Vector3 rotation;
 
-    public TileInfo(TileBase tile, Vector3Int pos, string guid) { 
+    public TileInfo(TileBase tile, Vector3Int pos, string guid, Vector3 rot) { 
         this.tileBase = tile;
         this.guidFromAssetDB = guid;
         this.position = pos;
+        this.rotation = rot;
     }
 
 }

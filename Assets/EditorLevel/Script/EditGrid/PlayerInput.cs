@@ -71,6 +71,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Rotate"",
+                    ""type"": ""Button"",
+                    ""id"": ""78410665-a139-4f4e-9398-bffd3735e6be"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -128,6 +137,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""DragCamera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""72c65441-3e96-440c-8292-5fe6926741a3"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -141,6 +161,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Editor_MousePosition = m_Editor.FindAction("MousePosition", throwIfNotFound: true);
         m_Editor_Esc = m_Editor.FindAction("Esc", throwIfNotFound: true);
         m_Editor_DragCamera = m_Editor.FindAction("DragCamera", throwIfNotFound: true);
+        m_Editor_Rotate = m_Editor.FindAction("Rotate", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -207,6 +228,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Editor_MousePosition;
     private readonly InputAction m_Editor_Esc;
     private readonly InputAction m_Editor_DragCamera;
+    private readonly InputAction m_Editor_Rotate;
     public struct EditorActions
     {
         private @PlayerInput m_Wrapper;
@@ -216,6 +238,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @MousePosition => m_Wrapper.m_Editor_MousePosition;
         public InputAction @Esc => m_Wrapper.m_Editor_Esc;
         public InputAction @DragCamera => m_Wrapper.m_Editor_DragCamera;
+        public InputAction @Rotate => m_Wrapper.m_Editor_Rotate;
         public InputActionMap Get() { return m_Wrapper.m_Editor; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -240,6 +263,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @DragCamera.started += instance.OnDragCamera;
             @DragCamera.performed += instance.OnDragCamera;
             @DragCamera.canceled += instance.OnDragCamera;
+            @Rotate.started += instance.OnRotate;
+            @Rotate.performed += instance.OnRotate;
+            @Rotate.canceled += instance.OnRotate;
         }
 
         private void UnregisterCallbacks(IEditorActions instance)
@@ -259,6 +285,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @DragCamera.started -= instance.OnDragCamera;
             @DragCamera.performed -= instance.OnDragCamera;
             @DragCamera.canceled -= instance.OnDragCamera;
+            @Rotate.started -= instance.OnRotate;
+            @Rotate.performed -= instance.OnRotate;
+            @Rotate.canceled -= instance.OnRotate;
         }
 
         public void RemoveCallbacks(IEditorActions instance)
@@ -283,5 +312,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnMousePosition(InputAction.CallbackContext context);
         void OnEsc(InputAction.CallbackContext context);
         void OnDragCamera(InputAction.CallbackContext context);
+        void OnRotate(InputAction.CallbackContext context);
     }
 }

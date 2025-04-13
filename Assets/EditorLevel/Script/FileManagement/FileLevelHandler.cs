@@ -6,6 +6,7 @@ using UnityEngine.Tilemaps;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
+using Unity.Mathematics;
 
 public class FileLevelHandler : MonoBehaviour
 {
@@ -55,7 +56,7 @@ public class FileLevelHandler : MonoBehaviour
                 if (index > -1 && index < tilemaps.Count) //tiles.TryGetValue(tileBase, out GameObject val)
                 {
                     Vector3 vector = map.CellToWorld(tile.position);
-                    GameObject newGameObj = Instantiate(prefabs[index], vector, Quaternion.identity);
+                    GameObject newGameObj = Instantiate(prefabs[index], vector, Quaternion.Euler(tile.rotation));
                     
                     if (index == 3) {
                         newGameObj.transform.parent = playerContainer.transform;

@@ -22,7 +22,6 @@ public static class FileHandler
 
     public static List<T> ReadListFromJSON<T>(string path)
     {
-        Debug.Log(path);
         string content = ReadFile(path);
 
         if (string.IsNullOrEmpty(content) || content == "{}")

@@ -17,6 +17,7 @@ public class BuildingCreator : Singleton<BuildingCreator>
     bool holdActive;
     Vector3Int holdStartPosition;
     BoundsInt bounds;
+    int degree = 0;
 
     protected override void Awake()
     {
@@ -32,8 +33,8 @@ public class BuildingCreator : Singleton<BuildingCreator>
         playerInput.Editor.MouseLeftClick.performed += OnLeftClick;
         playerInput.Editor.MouseLeftClick.started += OnLeftClick;
         playerInput.Editor.MouseLeftClick.canceled += OnLeftClick;
-
         playerInput.Editor.MouseRightClick.performed += OnRigthClick;
+        playerInput.Editor.Rotate.performed += OnRotate;
     }
 
     private void OnDisable()
@@ -43,8 +44,16 @@ public class BuildingCreator : Singleton<BuildingCreator>
         playerInput.Editor.MouseLeftClick.performed -= OnLeftClick;
         playerInput.Editor.MouseLeftClick.started -= OnLeftClick;
         playerInput.Editor.MouseLeftClick.canceled -= OnLeftClick;
-
         playerInput.Editor.MouseRightClick.performed -= OnRigthClick;
+        playerInput.Editor.Rotate.performed -= OnRotate;
+    }
+
+    private void OnRotate(InputAction.CallbackContext ctx) {
+        degree += 90;
+        if (selectedObj != null)
+        {
+            UpdatePreview();
+        }
     }
 
     private void Update()
@@ -111,6 +120,7 @@ public class BuildingCreator : Singleton<BuildingCreator>
         holdActive = false;
         previewMap.ClearAllTiles();
         SelectedObj = null;
+        degree = 0;
     }
 
     public void ObjectSelected(BuildingObjectsBase obj)
@@ -121,7 +131,14 @@ public class BuildingCreator : Singleton<BuildingCreator>
     private void UpdatePreview()
     {
         previewMap.SetTile(lastGridPosition, null);
-        previewMap.SetTile(currentGridPosition, tileBase);
+        var tileTransform = Matrix4x4.Rotate(Quaternion.Euler(0,0,degree));
+        var tileChangeData = new TileChangeData{
+            position = currentGridPosition,
+            tile = tileBase,
+            color = Color.white,
+            transform = tileTransform
+        };
+        previewMap.SetTile(tileChangeData, false);
     }
 
     private void HandleDrawing()
@@ -200,7 +217,14 @@ public class BuildingCreator : Singleton<BuildingCreator>
             map.SetTile(position, null);
         }
         else {
-            map.SetTile(position, tileBase);
+            var tileTransform = Matrix4x4.Rotate(Quaternion.Euler(0,0,degree));
+            var tileChangeData = new TileChangeData{
+                position = position,
+                tile = tileBase,
+                color = Color.white,
+                transform = tileTransform
+            };
+            map.SetTile(tileChangeData, false);
         }
     }
 }

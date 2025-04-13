@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
         }
         Restart();
     }
+    
     public void Restart(){
         transform.position = startPosition;
         SetControlMode(defaultMode);

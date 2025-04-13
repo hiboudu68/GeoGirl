@@ -9,8 +9,7 @@ using UnityEngine.InputSystem.Interactions;
 
 public class FileLevelHandler : MonoBehaviour
 {
-    public string filenameSave = "tilemapTemp.json";
-    string filename = "tilemapTemp.json";
+    string pathFileTemp;
     //[SerializeField] Dictionary<TileBase, GameObject> linkTilePrefab = new();
     public List<TileBase> tilemaps = new();
     public List<GameObject> prefabs = new();
@@ -21,11 +20,12 @@ public class FileLevelHandler : MonoBehaviour
     
     private void Awake() {
         playerInput = new PlayerInput();
+        pathFileTemp = FileHandler.GetPath("tilemapTemp.json");
     }
 
     private void Start()
     {
-        List<TilemapData> data = FileHandler.ReadListFromJSON<TilemapData>(filename);
+        List<TilemapData> data = FileHandler.ReadListFromJSON<TilemapData>(pathFileTemp);
         Tilemap map = FindObjectOfType<Tilemap>();
 
         //with the position put the good object in this position

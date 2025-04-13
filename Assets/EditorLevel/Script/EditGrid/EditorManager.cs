@@ -21,13 +21,13 @@ public class EditorManager : MonoBehaviour
     Camera mainCamera;
     bool isDragging;
     Dictionary<string, Tilemap> tilemaps = new();
-    [SerializeField] string filenameSave = "tilemapTemp.json";
-    string filename = "tilemapTemp.json";
+    string pathFileTemp;
     public List<TileBase> tileBases = new();
 
     private void Awake() {
         playerInput = new PlayerInput();
         mainCamera = Camera.main;
+        pathFileTemp = FileHandler.GetPath("tilemapTemp.json");
     }
 
     private void Start()
@@ -35,7 +35,7 @@ public class EditorManager : MonoBehaviour
         InitTilemaps();
 
         if (ModifEditorHandler.IsModif) {
-            OnLoad();
+            LoadFile(pathFileTemp);
         }
     }
 
@@ -94,8 +94,7 @@ public class EditorManager : MonoBehaviour
 
     public void ImportTxt() {
         FileBrowser.SetFilters( false, new FileBrowser.Filter( "*", ".txt" ) );
-		FileBrowser.ShowLoadDialog( OnSuccess,//( paths ) => { Debug.Log( "Selected: " + paths[0] ); },
-								   () => { Debug.Log( "Canceled" ); },
+		FileBrowser.ShowLoadDialog( OnSuccess, () => { Debug.Log( "Canceled" ); },
 								   FileBrowser.PickMode.Files, false, null, null, "Select Folder", "Select" );
     }
 
@@ -153,18 +152,27 @@ public class EditorManager : MonoBehaviour
         }
         data.Add(mapData);
 
-        FileHandler.SaveToJSON<TilemapData>(data, "tilemapTemp.json");
+        FileHandler.SaveToJSON<TilemapData>(data, pathFileTemp);
         
         SceneManager.LoadScene("EditorPlay");
     }
 
     public void TestLevelEditor()
     {
-        OnSave();
+        SaveFile(pathFileTemp);
         SceneManager.LoadScene("EditorPlay");
     }
 
     public void OnSave()
+    {
+        FileBrowser.SetFilters( false, new FileBrowser.Filter( "*", ".json" ) );
+        FileBrowser.ShowSaveDialog( ( paths ) => { SaveFile(paths[0]); }, 
+            () => { Debug.Log( "Canceled" ); }, 
+            FileBrowser.PickMode.Files, 
+            false, null, "GeoGirlLevel.json", "Save As", "Save" );
+    }
+
+    public void SaveFile(string path)
     {
         List<TilemapData> data = new();
 
@@ -197,12 +205,20 @@ public class EditorManager : MonoBehaviour
             data.Add(mapData);
         }
 
-        FileHandler.SaveToJSON<TilemapData>(data, filename);
+        FileHandler.SaveToJSON<TilemapData>(data, path);
     }
 
     public void OnLoad()
     {
-        List<TilemapData> data = FileHandler.ReadListFromJSON<TilemapData>(filename);
+        FileBrowser.SetFilters( false, new FileBrowser.Filter( "*", ".json" ) );
+        FileBrowser.ShowLoadDialog( ( paths ) => { LoadFile(paths[0]); }, 
+            () => { Debug.Log( "Canceled" ); }, 
+            FileBrowser.PickMode.Files, false, null, null, "Select Folder", "Select" );
+    }
+
+    public void LoadFile(string path)
+    {
+        List<TilemapData> data = FileHandler.ReadListFromJSON<TilemapData>(path);
 
         foreach (var mapData in data) {
             if (!tilemaps.ContainsKey(mapData.key)) {
@@ -219,8 +235,8 @@ public class EditorManager : MonoBehaviour
                     TileBase tileBase = tile.tileBase;
                     if (tileBase == null)
                     {
-                        string path = AssetDatabase.GUIDToAssetPath(tile.guidFromAssetDB);
-                        tileBase = AssetDatabase.LoadAssetAtPath<TileBase>(path);
+                        string assetPath = AssetDatabase.GUIDToAssetPath(tile.guidFromAssetDB);
+                        tileBase = AssetDatabase.LoadAssetAtPath<TileBase>(assetPath);
                         
                         if (tileBase == null) {
                             Debug.Log("Tile not found in AssetDatabase");

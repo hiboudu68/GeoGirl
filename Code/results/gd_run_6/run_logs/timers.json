@@ -1,0 +1,68 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1746990816",
+        "python_version": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]",
+        "command_line_arguments": "D:\\Cours\\Sabrina\\GeoGirl - Copie\\venv-mlagents\\Scripts\\mlagents-learn MLConfig/geometry_dash.yaml --run-id=gd_run_6",
+        "mlagents_version": "1.1.0",
+        "mlagents_envs_version": "1.1.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "2.7.0+cpu",
+        "numpy_version": "1.23.5",
+        "end_time_seconds": "1746990888"
+    },
+    "total": 72.65468270005658,
+    "count": 1,
+    "self": 0.002583700232207775,
+    "children": {
+        "run_training.setup": {
+            "total": 0.057883899891749024,
+            "count": 1,
+            "self": 0.057883899891749024
+        },
+        "TrainerController.start_learning": {
+            "total": 72.59421509993263,
+            "count": 1,
+            "self": 0.00010629999451339245,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 4.438833500025794,
+                    "count": 1,
+                    "self": 4.438833500025794
+                },
+                "TrainerController.advance": {
+                    "total": 68.10242319991812,
+                    "count": 1,
+                    "self": 1.0800082236528397e-05,
+                    "children": {
+                        "env_step": {
+                            "total": 68.10241239983588,
+                            "count": 1,
+                            "self": 68.10240829992108,
+                            "children": {
+                                "SubprocessEnvManager._take_step": {
+                                    "total": 4.09991480410099e-06,
+                                    "count": 1,
+                                    "self": 4.09991480410099e-06
+                                }
+                            }
+                        }
+                    }
+                },
+                "TrainerController._save_models": {
+                    "total": 0.05285209999419749,
+                    "count": 1,
+                    "self": 0.007353799883276224,
+                    "children": {
+                        "RLTrainer._checkpoint": {
+                            "total": 0.045498300110921264,
+                            "count": 1,
+                            "self": 0.045498300110921264
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

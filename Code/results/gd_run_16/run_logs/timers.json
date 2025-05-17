@@ -1,0 +1,42 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1746994959",
+        "python_version": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]",
+        "command_line_arguments": "D:\\Cours\\Sabrina\\GeoGirl - Copie\\venv-mlagents\\Scripts\\mlagents-learn MLConfig/geometry_dash.yaml --run-id=gd_run_16",
+        "mlagents_version": "1.1.0",
+        "mlagents_envs_version": "1.1.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "2.7.0+cpu",
+        "numpy_version": "1.23.5",
+        "end_time_seconds": "1746995022"
+    },
+    "total": 62.442200999939814,
+    "count": 1,
+    "self": 0.0026614998932927847,
+    "children": {
+        "run_training.setup": {
+            "total": 0.05894450005143881,
+            "count": 1,
+            "self": 0.05894450005143881
+        },
+        "TrainerController.start_learning": {
+            "total": 62.38059499999508,
+            "count": 1,
+            "self": 9.309989400207996e-05,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 62.38048240006901,
+                    "count": 1,
+                    "self": 62.38048240006901
+                },
+                "TrainerController._save_models": {
+                    "total": 1.950003206729889e-05,
+                    "count": 1,
+                    "self": 1.950003206729889e-05
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,29 @@
+{
+    "GeometryDashTrainer": {
+        "checkpoints": [
+            {
+                "steps": 3939,
+                "file_path": "results\\gd_run_29\\GeometryDashTrainer\\GeometryDashTrainer-3939.onnx",
+                "reward": -6.14361713778588,
+                "creation_time": 1746997035.7896996,
+                "auxillary_file_paths": [
+                    "results\\gd_run_29\\GeometryDashTrainer\\GeometryDashTrainer-3939.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 3939,
+            "file_path": "results\\gd_run_29\\GeometryDashTrainer.onnx",
+            "reward": -6.14361713778588,
+            "creation_time": 1746997035.7896996,
+            "auxillary_file_paths": [
+                "results\\gd_run_29\\GeometryDashTrainer\\GeometryDashTrainer-3939.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "2.7.0+cpu"
+    }
+}

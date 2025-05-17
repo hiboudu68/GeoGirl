@@ -1,0 +1,97 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1746990613",
+        "python_version": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]",
+        "command_line_arguments": "D:\\Cours\\Sabrina\\GeoGirl - Copie\\venv-mlagents\\Scripts\\mlagents-learn MLConfig/geometry_dash.yaml --run-id=gd_run_4",
+        "mlagents_version": "1.1.0",
+        "mlagents_envs_version": "1.1.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "2.7.0+cpu",
+        "numpy_version": "1.23.5",
+        "end_time_seconds": "1746990632"
+    },
+    "total": 18.900916900020093,
+    "count": 1,
+    "self": 0.451575200073421,
+    "children": {
+        "run_training.setup": {
+            "total": 0.055264800088480115,
+            "count": 1,
+            "self": 0.055264800088480115
+        },
+        "TrainerController.start_learning": {
+            "total": 18.39407689985819,
+            "count": 1,
+            "self": 0.0018124999478459358,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 6.201317100087181,
+                    "count": 1,
+                    "self": 6.201317100087181
+                },
+                "TrainerController.advance": {
+                    "total": 12.13597059994936,
+                    "count": 1,
+                    "self": 1.4200108125805855e-05,
+                    "children": {
+                        "env_step": {
+                            "total": 12.135956399841234,
+                            "count": 1,
+                            "self": 12.135952499695122,
+                            "children": {
+                                "SubprocessEnvManager._take_step": {
+                                    "total": 3.90014611184597e-06,
+                                    "count": 1,
+                                    "self": 3.90014611184597e-06
+                                }
+                            }
+                        }
+                    }
+                },
+                "trainer_threads": {
+                    "total": 1.8799910321831703e-05,
+                    "count": 1,
+                    "self": 1.8799910321831703e-05,
+                    "children": {
+                        "thread_root": {
+                            "total": 0.0,
+                            "count": 0,
+                            "is_parallel": true,
+                            "self": 0.0,
+                            "children": {
+                                "trainer_advance": {
+                                    "total": 12.130225702188909,
+                                    "count": 779,
+                                    "is_parallel": true,
+                                    "self": 0.014667207142338157,
+                                    "children": {
+                                        "process_trajectory": {
+                                            "total": 12.115558495046571,
+                                            "count": 779,
+                                            "is_parallel": true,
+                                            "self": 12.115558495046571
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "TrainerController._save_models": {
+                    "total": 0.054957899963483214,
+                    "count": 1,
+                    "self": 0.008575600106269121,
+                    "children": {
+                        "RLTrainer._checkpoint": {
+                            "total": 0.04638229985721409,
+                            "count": 1,
+                            "self": 0.04638229985721409
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

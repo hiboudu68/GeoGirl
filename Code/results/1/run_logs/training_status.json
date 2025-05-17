@@ -1,0 +1,65 @@
+{
+    "GeometryDashTrainer": {
+        "checkpoints": [
+            {
+                "steps": 0,
+                "file_path": "results\\1\\GeometryDashTrainer\\GeometryDashTrainer-0.onnx",
+                "reward": null,
+                "creation_time": 1747298194.6819782,
+                "auxillary_file_paths": [
+                    "results\\1\\GeometryDashTrainer\\GeometryDashTrainer-0.pt"
+                ]
+            },
+            {
+                "steps": 327,
+                "file_path": "results\\1\\GeometryDashTrainer\\GeometryDashTrainer-327.onnx",
+                "reward": -216.11518096923828,
+                "creation_time": 1747298278.7595391,
+                "auxillary_file_paths": [
+                    "results\\1\\GeometryDashTrainer\\GeometryDashTrainer-327.pt"
+                ]
+            },
+            {
+                "steps": 327,
+                "file_path": "results\\1\\GeometryDashTrainer\\GeometryDashTrainer-327.onnx",
+                "reward": null,
+                "creation_time": 1747298317.8759825,
+                "auxillary_file_paths": [
+                    "results\\1\\GeometryDashTrainer\\GeometryDashTrainer-327.pt"
+                ]
+            },
+            {
+                "steps": 952,
+                "file_path": "results\\1\\GeometryDashTrainer\\GeometryDashTrainer-952.onnx",
+                "reward": -200.26155281066895,
+                "creation_time": 1747299469.0346162,
+                "auxillary_file_paths": [
+                    "results\\1\\GeometryDashTrainer\\GeometryDashTrainer-952.pt"
+                ]
+            },
+            {
+                "steps": 10917,
+                "file_path": "results\\1\\GeometryDashTrainer\\GeometryDashTrainer-10917.onnx",
+                "reward": -201.61289800223656,
+                "creation_time": 1747299625.3310504,
+                "auxillary_file_paths": [
+                    "results\\1\\GeometryDashTrainer\\GeometryDashTrainer-10917.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 10917,
+            "file_path": "results\\1\\GeometryDashTrainer.onnx",
+            "reward": -201.61289800223656,
+            "creation_time": 1747299625.3310504,
+            "auxillary_file_paths": [
+                "results\\1\\GeometryDashTrainer\\GeometryDashTrainer-10917.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "2.7.0+cpu"
+    }
+}

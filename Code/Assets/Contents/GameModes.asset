@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c60ac899baf0b48accce40d7aaaace, type: 3}
+  m_Name: GameModes
+  m_EditorClassIdentifier: 
+  playModes:
+  - Id: 1
+    ModeName: Cube
+    DefaultSkin: 0
+    DefaultPrimaryColor: {r: 0.509434, g: 0.509434, b: 0.509434, a: 1}
+    DefaultSecondaryColor: {r: 0, g: 0.7761493, b: 1, a: 1}
+    PlayModePrefab: {fileID: 1949674049057285988, guid: 8aa5df98675e34582ac7fdd328f1f73c, type: 3}
+    Skins:
+    - Id: 0
+      Icon: {fileID: 21300000, guid: c13c96c10f8addd418d6db2d2c3f8bf5, type: 3}
+      Animator: {fileID: 0}
+    - Id: 2
+      Icon: {fileID: 21300000, guid: a6f34926f33602f49b4a2486b682534a, type: 3}
+      Animator: {fileID: 0}
+    - Id: 3
+      Icon: {fileID: 21300000, guid: ffc086eab01725641b8684e58df958a3, type: 3}
+      Animator: {fileID: 0}
+    - Id: 4
+      Icon: {fileID: 21300000, guid: 5dfeddfb0e4cf7d48bd9fe4165092aaf, type: 3}
+      Animator: {fileID: 0}
+    - Id: 5
+      Icon: {fileID: 21300000, guid: f4ad72c7517c1ef4bbeef9efab045857, type: 3}
+      Animator: {fileID: 0}
+  - Id: 2
+    ModeName: Ship
+    DefaultSkin: 0
+    DefaultPrimaryColor: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 1}
+    DefaultSecondaryColor: {r: 0, g: 0.8430972, b: 1, a: 1}
+    PlayModePrefab: {fileID: 4773942976045693780, guid: 7294d4f22140e4faba555292ec5fc380, type: 3}
+    Skins:
+    - Id: 0
+      Icon: {fileID: 21300000, guid: b80720074fa827a40b2621cb335a6da5, type: 3}
+      Animator: {fileID: 0}
+    - Id: 1
+      Icon: {fileID: 21300000, guid: 07af0dae33c3d114890a6e29e6a15af5, type: 3}
+      Animator: {fileID: 0}
+    - Id: 2
+      Icon: {fileID: 21300000, guid: e8bfd7003a5321f49828ee6d67a235ad, type: 3}
+      Animator: {fileID: 0}
+    - Id: 3
+      Icon: {fileID: 21300000, guid: 16aac4bec09f7d94d9935be13a0a0672, type: 3}
+      Animator: {fileID: 0}
+    - Id: 4
+      Icon: {fileID: 21300000, guid: c7c8a04194671cf4b94a8f917fcec0aa, type: 3}
+      Animator: {fileID: 0}
+  - Id: 3
+    ModeName: Ball
+    DefaultSkin: 0
+    DefaultPrimaryColor: {r: 0.5849056, g: 0.5849056, b: 0.5849056, a: 1}
+    DefaultSecondaryColor: {r: 0, g: 0.7234368, b: 0.990566, a: 1}
+    PlayModePrefab: {fileID: 4773942976045693780, guid: fb85b1956b95a594fa955428cb648a69, type: 3}
+    Skins:
+    - Id: 0
+      Icon: {fileID: 21300000, guid: 2865dc0a51703ec4d96ee0cc37e2ec05, type: 3}
+      Animator: {fileID: 0}
+    - Id: 1
+      Icon: {fileID: 21300000, guid: 9876802431367004d9efc391cb7584f7, type: 3}
+      Animator: {fileID: 0}
+    - Id: 2
+      Icon: {fileID: 21300000, guid: b34553835d4062e4a818cb641ad6dfa8, type: 3}
+      Animator: {fileID: 0}
+    - Id: 3
+      Icon: {fileID: 21300000, guid: b11f35c170a9d9b44aeaa4b6489645ee, type: 3}
+      Animator: {fileID: 0}
+    - Id: 4
+      Icon: {fileID: 21300000, guid: fe116d8bb87c12446a283e95dcad85b8, type: 3}
+      Animator: {fileID: 0}

@@ -1,0 +1,38 @@
+@startuml
+
+package Unity {
+    class MonoBehaviour
+    interface IPointerClickHandler
+}
+
+package UI{
+    abstract class BaseMenu
+    {
+        + abstract Show() : void
+        + abstract Hide() : void
+    }
+    MonoBehaviour <|-- BaseMenu
+
+    package StatsMenu{
+        class BtnCloseStats
+        {
+            + OnPointerClick(eventData : PointerEventData) : void
+        }
+        MonoBehaviour <|--- BtnCloseStats
+        IPointerClickHandler <|--- BtnCloseStats
+
+        class StatsMenu
+        {
+            - levelCount : Text
+            - coinsCount : Text
+            - progressionAverage : Text
+            - totalTryCount : Text
+            - LoadStats() : void
+            + Show() : void
+            + Hide() : void
+        }
+        BaseMenu <|--- StatsMenu
+    }
+}
+
+@enduml

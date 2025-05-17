@@ -1,0 +1,37 @@
+@startuml
+
+package Unity {
+    class MonoBehaviour
+    interface IPointerClickHandler
+}
+
+package UI {
+    package MapEditor{
+        package Objects {
+            class BaseObject
+            {
+                + TileInfos : TileData
+                + LevelObjectInfos : LevelObject
+                - sprite : SpriteRenderer
+                - Start() : void
+                + Render(updateColors : bool) : void
+                + Rotate() : void
+            }
+            MonoBehaviour <|-- BaseObject
+
+            class ObjectSelector
+            {
+                + TileData : TileData
+                - border : GameObject
+                - Start() : void
+                - OnSelectedTileChanged(tile : TileData ) : void
+                + OnPointerClick(eventData : PointerEventData) : void
+            }
+            MonoBehaviour <|-- ObjectSelector
+            IPointerClickHandler <|-- ObjectSelector
+        }
+
+    }
+}
+
+@enduml

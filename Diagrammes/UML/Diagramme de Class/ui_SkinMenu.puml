@@ -1,0 +1,95 @@
+@startuml
+
+package Unity {
+    class MonoBehaviour
+    interface IPointerClickHandler
+}
+
+package UI{
+    package SkinMenu{
+        class BtnBackToMain
+        {
+            + OnPointerClick(eventData : PointerEventData) : void
+        }
+        MonoBehaviour <|--- BtnBackToMain
+        IPointerClickHandler <|---BtnBackToMain
+
+        class BtnGameMode
+        {
+            - modeList : GameModeList
+            - img : Image
+            + Mode : PlayMode
+            + BackgroundColor : Color
+            + OnPointerClick(eventData : PointerEventData) : void
+            - Start() : void
+            - Update() : void
+        }
+        MonoBehaviour <|--- BtnGameMode
+        IPointerClickHandler <|---BtnGameMode
+
+        class GameModeList
+        {
+            + PlayModeEvent(mode : PlayMode) : void
+            + ModeChanged : event
+            - buttons : Dictionary<PlayMode, BtnGameMode>
+            - iconObjs : Image[]
+            - choosedMode : PlayMode
+            - background : Sprite
+            - choosedModeBackgroundColor : Color
+
+            + CurrentMode : PlayMode
+            - Start() : IEnumerator
+            - OnPrimaryChanged(c : Color) : void
+            - OnSecondaryChanged(c : Color) : void
+            + ChooseMode(mode : PlayMode) : void
+        }
+        MonoBehaviour <|--- GameModeList
+
+        class SkinContainer
+        {
+            - skinList : SkinsList
+            - img : Image
+            - spriteMaterial : Material
+            + skin : SkinData
+            + BackgroundColor : Color
+            - Start() : IEnumerator
+            - OnPrimaryChanged(c : Color) : void
+            - OnSecondaryChanged(c : Color) : void
+            - Update() : void
+            + OnPointerClick(eventData : PointerEventData) : void
+        }
+        MonoBehaviour <|--- SkinContainer
+        IPointerClickHandler <|--- SkinContainer
+
+        class SkinsList
+        {
+            - modeList : GameModeList
+            - skins : SkinContainer[]
+            - currentSkin : SkinContainer
+            - skinImage : Image
+            + SpriteMaterial : Material
+            - choosedSkinBackgroundColor : Color
+            - background : Sprite
+            - Start() : IEnumerator
+            - OnPrimaryChanged(c : Color) : void
+            - OnSecondaryChanged(c : Color) : void
+            - OnModeChanged(mode : PlayMode) : void
+            + ChooseSkin(skinContainer : SkinContainer) : void
+        }
+        MonoBehaviour <|--- SkinsList
+
+        class SkinsMenu
+        {
+            + ColorChanged(color : Color) : void
+            + PrimaryChanged : event
+            + SecondaryChanged : event
+            + PrimaryColorPicker : FlexibleColorPicker
+            + SecondaryColorPicker : FlexibleColorPicker
+            + OnPrimaryColorChanged(color : Color) : void
+            + OnSecondaryColorChanged(color : Color) : void
+        }
+        MonoBehaviour <|--- SkinsMenu
+    }
+}
+
+@enduml

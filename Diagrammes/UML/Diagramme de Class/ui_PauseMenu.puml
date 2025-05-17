@@ -1,0 +1,51 @@
+@startuml
+
+package Unity {
+    class MonoBehaviour
+    interface IPointerClickHandler
+}
+
+package UI{
+
+    abstract class BaseMenu
+    {
+        + abstract Show() : void
+        + abstract Hide() : void
+    }
+    MonoBehaviour <|-- BaseMenu
+
+    package PauseMenu{
+        class BtnExit
+        {
+            + OnPointerClick(eventData : PointerEventData) : void
+        }
+        MonoBehaviour <|--- BtnExit
+        IPointerClickHandler <|--- BtnExit
+
+        class BtnRestart
+        {
+            + OnPointerClick(eventData : PointerEventData ) : void
+        }
+        MonoBehaviour <|--- BtnRestart
+        IPointerClickHandler <|--- BtnRestart
+
+        class PauseMenu
+        {
+            - toggler : UIToggler
+            - isOpen : bool
+            - BtnBack : Slidable
+            - BtnReplay : Slidable
+            - TimeText : Text
+            - TryCountText : Text
+            - JumpCountText : Text
+            - Start() : void
+            - Update() : void
+            + Show() : void
+            + Hide() : void
+            - OnSlidableAnimationEnds(s : Slidable) : void
+        }
+        BaseMenu <|--- PauseMenu
+    }
+}
+
+@enduml

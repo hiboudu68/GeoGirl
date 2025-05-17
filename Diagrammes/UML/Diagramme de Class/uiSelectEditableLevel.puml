@@ -1,0 +1,77 @@
+@startuml
+
+package Unity {
+    class MonoBehaviour
+    class NativeFileDialog
+    interface IPointerClickHandler
+}
+
+package UI{
+    abstract class BaseMenu
+    {
+        + abstract Show() : void
+        + abstract Hide() : void
+    }
+    MonoBehaviour <|-- BaseMenu
+    
+    package SelectEditableLevel{
+        class BtnBackFromEditableLevels
+        {
+            + OnPointerClick(eventData : PointerEventData) : void
+        }
+        MonoBehaviour <|---- BtnBackFromEditableLevels
+        IPointerClickHandler <|---- BtnBackFromEditableLevels
+
+        class BtnCreateLevel
+        {
+            + OnPointerClick(eventData : PointerEventData) : void
+        }
+        MonoBehaviour <|---- BtnCreateLevel
+        IPointerClickHandler <|---- BtnCreateLevel
+
+        class BtnDeleteLevel
+        {
+            + OnPointerClick(eventData : PointerEventData) : void
+        }
+        MonoBehaviour <|---- BtnDeleteLevel
+        IPointerClickHandler <|---- BtnDeleteLevel
+
+        class BtnEditLevel
+        {
+            + OnPointerClick(eventData : PointerEventData) : void
+        }
+        MonoBehaviour <|---- BtnEditLevel
+        IPointerClickHandler <|---- BtnEditLevel
+
+        class BtnImportLevel
+        {
+            + OnPointerClick(eventData : PointerEventData) : void
+        }
+        NativeFileDialog <|---- BtnImportLevel
+        IPointerClickHandler <|---- BtnImportLevel
+
+        class EditableLevelListMenu
+        {
+            + PlayerPrefab : GameObject
+            - btnBack : Button
+            - levelSlider : LevelSlider
+            - btnBackRenderer : CanvasRenderer
+            + BtnBack : Slidable
+            + IsVisible : bool
+
+            - Start() : void
+            + GetSelectedLevel()  : Level;
+            - OnLevelList(levels : Level[]) : void
+            - OnBtnBackAnimationEnds(slidable : Slidable) : void
+            - Update() : void
+            + StartEditLevel(lvl : Level) : void
+            +  Hide() : void
+            + Show() : void
+            + HideBack() : void
+            + ShowBack() : void
+        }
+        BaseMenu <|---- EditableLevelListMenu
+    }
+}
+
+@enduml

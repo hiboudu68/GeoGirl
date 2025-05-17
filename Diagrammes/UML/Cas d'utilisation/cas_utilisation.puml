@@ -1,0 +1,41 @@
+@startuml
+left to right direction
+actor Player
+
+package "Menu Principal" {
+  usecase "Menu Niveau" as Levels
+  usecase "Menu Skins" as Skins
+  usecase "Stats" as Stats
+  usecase "Sons du Niveau" as Sound
+  usecase "Editeur" as Editor
+  usecase "Quitter" as Quit
+}
+
+Player --> Levels
+Player --> Skins
+Player --> Stats
+Player --> Sound
+Player --> Editor
+Player --> Quit
+
+package "Menu Niveau" {
+  usecase "Retour Menu Principal" as Principal
+  usecase "Choix Niveau" as Choice
+  usecase "Jouer" as Play
+}
+Levels --> Choice
+Levels --> Principal
+Choice --> Play
+
+actor PlayerInPlay
+package "Menu Pause" {
+  usecase "Sons du Niveau" as SoundLevel
+  usecase "Recommencer" as Recommencer
+  usecase "Continuer" as Continuer
+  usecase "Retour Menu Niveau" as MenuNiveau
+}
+PlayerInPlay --> SoundLevel
+PlayerInPlay --> Recommencer
+PlayerInPlay --> Continuer
+PlayerInPlay --> MenuNiveau
+@enduml

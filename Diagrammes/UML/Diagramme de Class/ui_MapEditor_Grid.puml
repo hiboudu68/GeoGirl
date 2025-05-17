@@ -1,0 +1,90 @@
+@startuml
+
+package Unity {
+    class MonoBehaviour
+    interface IPointerDownHandler
+    interface IPointerMoveHandler
+    interface IPointerUpHandler
+    interface IPointerClickHandler
+    class Graphic
+}
+
+package UI {
+    package MapEditor{
+        package Grid {
+            class CameraFree
+            {
+                - isDown : bool
+                - startDownPosition : Vector2
+                + OnPointerDown(eventData : PointerEventData) : void
+                + OnPointerMove(eventData : PointerEventData) : void
+                + OnPointerUp(eventData : PointerEventData) : void
+            }
+            MonoBehaviour <|-- CameraFree
+            IPointerDownHandler <|-- CameraFree
+            IPointerMoveHandler <|-- CameraFree
+            IPointerUpHandler <|-- CameraFree
+
+            class GridObjectsPlacementCursor
+            {
+                - isDown : bool
+                - cursorObj : BaseObject
+                - mapEditor : MapEditorManager
+                - onDownPosition : Vector2
+                - onDownTime : float
+                - border : GameObject
+
+                - Start() : void
+                - ShowCursor() : void
+                - HideCursor() : void
+                - OnSelectedObjectChanged(obj : BaseObject) : void
+                - OnSelectedTileChanged(tile : TileData) : void
+                + OnPointerDown(e : PointerEventData) : void
+                + OnPointerMove(e : PointerEventData) : void
+                + OnPointerUp(eventData : PointerEventData) : void
+                - MoveTile(position : Vector2) : void
+                - MoveObject(position : Vector2) : void
+                + OnPointerClick(e : PointerEventData) : void
+                - TrySelectObjectAt(position : Vector2) : void
+                - PointerToWorldPosition(position : Vector2) : (int, int)
+            }
+            MonoBehaviour <|-- GridObjectsPlacementCursor
+            IPointerDownHandler <|-- GridObjectsPlacementCursor
+            IPointerMoveHandler <|-- GridObjectsPlacementCursor
+            IPointerUpHandler <|-- GridObjectsPlacementCursor
+            IPointerClickHandler <|-- GridObjectsPlacementCursor
+
+            class UIGrid
+            {
+                + targetCamera : Camera
+                + cellSize : float
+                + baseOffset : Vector2
+                + lineColor : Color
+                + lineThickness : float
+                - lastCamPos : Vector2 
+                - rectTransformCache : RectTransform 
+                - parentCanvas : Canvas 
+                # OnEnable() : void 
+                - Update() : void
+                # OnPopulateMesh(vh : VertexHelper) : void
+                - AddLine(vh : VertexHelper , worldP1 : Vector2 , worldP2 : Vector2 ) : void
+            }
+            Graphic <|-- UIGrid
+
+            class UIGridFollowCamera
+            {
+                + cellSize : float
+                - rawImage : RawImage
+                - cam : Camera
+                - initialUV : Rect
+
+                - Awake() : void
+                - Update() : void
+            }
+            MonoBehaviour <|-- UIGridFollowCamera
+        }
+    }
+}
+
+
+@enduml

@@ -1,0 +1,85 @@
+@startuml
+
+package Unity {
+    class MonoBehaviour
+    interface IPointerClickHandler
+}
+
+package UI{
+    abstract class BaseMenu
+    {
+        + abstract Show() : void
+        + abstract Hide() : void
+    }
+    MonoBehaviour <|-- BaseMenu
+    
+    package Popup{
+        package AskForName{
+            class AskForName
+            {
+                + delegate void ValueGivenCallback(string value);
+                + delegate void CancelledCallback();
+                + {static} Instance : AskForName
+                - onValidate : ValueGivenCallback
+                - onCancel : CancelledCallback
+                - toggler : UIToggler
+                - input : InputField
+                + Result : string
+                - Start() : void
+                + GetValue(onValidate : ValueGivenCallback, onCancel : CancelledCallback, defaultValue : string) : void
+                + Validate() : void
+                + Cancel() : void
+                + Hide() : void
+                + Show() : void
+            }
+            BaseMenu <|--- AskForName
+
+            class BtnCancelAskFormName
+            {
+                + OnPointerClick(eventData : PointerEventData) : void
+            }
+            MonoBehaviour <|--- BtnCancelAskFormName
+            IPointerClickHandler <|--- BtnCancelAskFormName
+
+            class BtnValidateAskForName
+            {
+                + OnPointerClick(eventData : PointerEventData) : void
+            }
+            MonoBehaviour <|--- BtnValidateAskForName
+            IPointerClickHandler <|--- BtnValidateAskForName
+        }
+
+        package Comfirm{
+            class BtnCancelPopup
+            {
+                + OnPointerClick(eventData : PointerEventData) : void
+            }
+            MonoBehaviour <|--- BtnCancelPopup
+            IPointerClickHandler <|--- BtnCancelPopup
+
+            class BtnConfirmPopup
+            {
+                + OnPointerClick(eventData : PointerEventData) : void
+            }
+            MonoBehaviour <|--- BtnConfirmPopup
+            IPointerClickHandler <|--- BtnConfirmPopup
+
+            class ConfirmPopup
+            {
+                + delegate void ConfirmResultCallback(bool confirm);
+                + {static} Instance : ConfirmPopup
+                - callback : ConfirmResultCallback
+                - toggler : UIToggler
+                - Start() : void
+                + GetValue(callback : ConfirmResultCallback) : void
+                + Confirm() : void
+                + Cancel() : void
+                + Hide() : void
+                + Show() : void
+            }
+            BaseMenu <|--- ConfirmPopup
+        }
+    }
+}
+
+@enduml

@@ -1,0 +1,49 @@
+@startuml
+
+package Unity {
+    class MonoBehaviour
+    interface IPointerClickHandler
+}
+
+package UI{
+    abstract class BaseMenu
+    {
+        + abstract Show() : void
+        + abstract Hide() : void
+    }
+    MonoBehaviour <|-- BaseMenu
+    
+    package VictoryMenu{
+        class BtnCloseVictory
+        {
+            + OnPointerClick(eventData : PointerEventData ) : void
+        }
+        MonoBehaviour <|--- BtnCloseVictory
+        IPointerClickHandler <|--- BtnCloseVictory
+
+        class BtnRestartVictory
+        {
+            + OnPointerClick(eventData : PointerEventData) : void
+        }
+        MonoBehaviour <|--- BtnRestartVictory
+        IPointerClickHandler <|--- BtnRestartVictory
+
+        class VictoryMenu
+        {
+            + {static} Instance : VictoryMenu
+            - textTime : Text
+            - textJumps : Text
+            - textTryCount : Text
+            - coinSprites : GameObject[]
+            + coinSprite : Sprite
+            + emptyCoinSprite : Sprite
+
+            - Start() : void
+            + Show() : void
+            + Hide() : void
+        }
+        BaseMenu <|--- VictoryMenu
+    }
+}
+
+@enduml

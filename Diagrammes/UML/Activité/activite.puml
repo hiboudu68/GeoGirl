@@ -1,0 +1,30 @@
+@startuml
+
+(*) --> [Début du niveau] "Avance" as run
+--> ===B1===
+===B1=== --> "Appuyer sur la touche action"
+--> if "condition requise pour effectuer l'action ?" then
+--> [oui] "effectue l'action"
+--> ===B3===
+else 
+--> [non] "n'effectue l'action pas"
+--> ===B3===
+
+===B1=== --> ===B3===
+===B3=== --> if "Touche un obstacle ?" as obs then
+--> [oui] start
+else 
+--> [non] ===B2===
+
+===B1=== --> if "Entre ou sort d'un bonus ?" then
+--> [oui] "Changement du gameplay"
+--> ===B3===
+else 
+--> [non] ===B3===
+
+===B2=== --> if "Niveau fini ?" as finish then
+--> [oui] "Niveau terminé"
+--> (*)
+else 
+--> [non] run
+@enduml

@@ -1,0 +1,33 @@
+@startuml
+skinparam groupInheritance 4
+
+package Unity {
+    class MonoBehaviour
+    interface IPointerClickHandler
+}
+
+package UI.InGameMenu { 
+
+    class BtnPause
+    {
+        - pauseMenu : PauseMenu
+        - pauseSprite : Sprite
+        - resumeSprite : Sprite
+        - Start() : void
+        - OnPauseMenuVisibilityChanged(isVisible : bool) : void
+        + OnPointerClick(eventData : PointerEventData) : void
+    }
+    MonoBehaviour <|-- BtnPause
+    IPointerClickHandler <|-- BtnPause
+
+    class InGameMenu
+    {
+        - btnPause : Slidable
+        + Show() : void 
+        + Hide() : void 
+    }
+    MonoBehaviour <|-- InGameMenu
+}
+
+
+@enduml

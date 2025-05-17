@@ -1,0 +1,488 @@
+@startuml test
+skinparam groupInheritance 5
+
+package Unity <<Folder>>{
+    class MonoBehaviour
+    class ScriptableObject
+    class Agent
+}
+
+package Audio <<Folder>>{
+    class MusicLoader
+    {
+        + {static} Instance : MusicLoader
+        - src : AudioSource
+        - Start() : void
+        + LoadAudioFromFile(path : string) : void
+        - LoadAudio(path : string) : IEnumerator
+    }
+    MonoBehaviour <|-- MusicLoader
+
+    class UIAudio
+    {
+        + {static} Instance : UIAudio
+        - src : AudioSource
+        - Tick : AudioClip
+        - Awake() : void 
+        + PlayTick() : void 
+    }
+    MonoBehaviour <|-- UIAudio
+}
+
+package Data <<Folder>>{
+
+    class FilePath <<static>>
+    {
+        - {static} string basePath
+        + {static} SetBasePath(path : string) : void
+        + {static} GetPlayerStats() : string
+        + {static} GetPlayerLevels() : string
+        + {static} GetLevelPath(level : Level) : string
+    }
+
+    class LevelCollection {
+        + Levels : Level[]
+    }
+
+    class Level
+    {
+        + Id : string
+        + IsMainLevel : bool
+        + Name : string
+        + TotalBonusCount : int
+    }
+
+    package GameContent <<Folder>>{
+        class LevelObject
+        {
+            + Id : int
+            + X : int
+            + Y : int
+            + Z : int
+            + Rotation : byte
+            + TileID : int
+            + PrimaryColor : Color
+            + SecondaryColor : Color
+        }
+        
+        class PlayMode
+        {
+            - {static} LastId : int
+            + Id : int
+            + ModeName : string
+            + DefaultSkin : int
+            + DefaultPrimaryColor : Color
+            + DefaultSecondaryColor : Color
+            + PlayModePrefab : GameObject
+            + Skins : SkinData[]
+        }
+
+        class SkinData
+        {
+            + Id : int
+            + Icon : Sprite
+        }
+
+        class TileData
+        {
+            - {static} LastId : int
+            + Id : int
+            + sprite : Sprite
+            + Prefab : GameObject
+            + name : string
+            + xSize : int
+            + ySize : int
+        }
+
+        package Managers <<Folder>>{
+            class GameModesManager
+            {
+                + {static} Instance : GameModesManager
+                - gameModeSkinRegistry : GameModeCollection
+                - Awake() : void 
+                + GetModes() : PlayMode[]
+                + GetSkinsForGameMode(gameMode : string) : SkinData[]
+            }
+            MonoBehaviour <|-- GameModesManager
+
+            class TilesManager
+            {
+                + {static} Instance : TilesManager
+                - tilesCollection : TileCollection
+                + SpriteMaterial : Material
+
+                - Start() : void 
+                - Awake() : void
+                + GetTile(int id) : TileData
+                + GetTiles() : TileData[]
+            }
+            MonoBehaviour <|-- TilesManager
+        }
+    }
+
+    package LevelStream <<Folder>>{
+        class LevelReader
+        {
+            - fs : FileStream
+            + levelData : Level
+            + MusicBytes : byte[]
+            + objects : LevelObject[]
+
+            + LevelReader(path : string) : LevelReader
+            - ReadObject() : void
+            - ReadString() : string
+            - ReadByte() : byte
+            - ReadShort() : short
+            - ReadInt() : int
+            - ReadLong() : long
+            - ReadBytes(len : long) : byte[]
+        }
+
+        class LevelWriter
+        {
+            - levelData : Level
+            - fs : FileStream
+
+            + LevelWriter(levelData : Level, basePath : string) : LevelWriter
+            - WriteHeader() : void
+            + Close() : void
+            - WriteString(str : string) : void
+            + WriteObjs(objs : LevelObject[]) : void
+            + WriteObjs(objs : BaseObject[]) : void
+            + SetMusicData(data : byte[]) : void
+            - WriteObj(tileId : int, obj : LevelObject, buffer : byte[], offset : int) : void
+        }
+    }
+
+    package PlayerData <<Folder>>{
+        class LevelsManager
+        {
+            + LevelListUpdate(newLevelList : Level[]) : void
+            + {static} LevelListChanged : event
+            + {static} SaveLevel(level : Level) : void
+            + {static} CreateLevel(editableLevel : Level) : void
+            + {static} DeleteLevel(editableLevel : Level) : void
+            - {static} Save(levels : Level[]) : void
+            + {static} GetEditableLevels() : Level[]
+            + {static} GetLevels() : Level[]
+        }
+
+        class PlayerSkinPreferences <<static>>
+        {
+            - {static} volume : bool
+            + {static} Volume : bool
+            - {static} skinsByMode : Dictionary<int, SkinData>
+            - {static} primaryColorsByMode : Dictionary<int, Color>
+            - {static} secondaryColorsByMode : Dictionary<int, Color>
+            - {static} LoadSkin(mode : PlayMode) : void
+            - {static} LoadColor(mode : PlayMode) : void
+            - {static} IntToColor(i : int) : Color
+            - {static} ColorToInt(c : Color) : int
+            + {static} GetPrimaryColor(modeId : int) : Color
+            + {static} GetSecondaryColor(modeId : int) : Color
+            + {static} GetSkin(modeId : int) : SkinData
+            + {static} SetPrimaryColor(modeId : int, color : Color) : void
+            + {static} SetSecondaryColor(modeId : int, color : Color) : void
+            + {static} SetSkin(modeId : int, skin : SkinData) : void
+            - {static} SetVolume(value : bool) : void
+        }
+
+        class PlayerStats <<static>>
+        {
+            + {static} GetStatistics() : LevelStatistics[]
+            + {static} SetLevelStats(level :  : LevelStatistics) : void
+            - {static} Save(stats : LevelStatistics[]) : void
+            + {static} GetLevelStats(id : string) : LevelStatistics
+        }
+
+        class LevelStatisticCollection
+        {
+            + Stats : LevelStatistics[]
+        }
+        
+        class LevelStatistics
+        {
+            + LevelId : string 
+            + JumpCount : int 
+            + TryCount : int 
+            + CollectedCoins : int 
+            + Progression : float
+        }
+        
+        class Statistics
+        {
+            + {static} CurrentLevelJumpCount : int
+            + {static} CurrentLevelTryCount : int
+            + {static} CurrentLevelCoinsCount : int
+        }
+    }
+
+    package Scriptables <<Folder>>{
+        class GameModeCollection
+        {
+            + playModes : PlayMode[]
+        }
+
+        class SkinCollection
+        {
+            + Skins : SkinData[]
+        }
+
+        class TileCollection
+        {
+            + TileList : TileData[]
+        }
+    }
+    ScriptableObject <|-- Scriptables 
+}
+
+package Environment <<Folder>>{
+    class GameGrid
+    {
+        + BaseObjectEvent(subject : BaseObject) : void
+        + NewObject : event
+        + ObjectChanged : event
+        + ObjectRemoved : event
+        + SaveEnabled : bool
+        - _isPlaying : bool
+        - startSprite : GameObject
+        - objects : BaseObject[]
+        + cellSize : float
+        + PrimaryColor : Color
+        + SecondaryColor : Color
+        + IsPlaying : bool
+        + Objects : BaseObject[]
+        - currentLevel : Level
+        - pendingObjects : LevelObject[]
+        + PlayerPrefab : GameObject 
+        + musicBytes : byte[] 
+        + CurrentLevel : Level
+        - Awake() : void
+        - Start() : void
+        - RunForAI() : void 
+        - Update() : void
+        + LoadLevel(levelData : Level) : void
+        + Clear() : void
+        + PrepareToPlay() : void
+        + PrepareToEdit() : void
+        + HideStartSprite() : void
+        + ShowStartSprite() : void
+        + GetLevelProgression(posX : float) : float
+        + Close() : void
+        + OnStartPlaying() : void
+        + OnStopPlaying() : void
+        + UpdateObject(obj : BaseObject) : void
+        + AddObject(levelObj : LevelObject) : void
+        + RemoveTileAt(worldPosition : Vector3Int) : void
+        + RemoveObject(obj : BaseObject) : void
+        + AddTileAt(tileData : TileData, worldPosition : Vector3Int, rotation : byte) : void
+        + TryGetTileAt(x : int, y : int, out tileObj : BaseObject): bool
+    }
+    MonoBehaviour <|- GameGrid
+}
+
+package GamePlay <<Folder>>{
+    package IA <<Folder>>{
+        class AIAgent
+        {
+            - grid : GameGrid
+            - isAlive : bool
+            - lastX : float 
+            - Start() : void
+            - FixedUpdate() : void
+            - OnWin() : void
+            - OnDie() : void
+            + CollectObservations(sensor : VectorSensor) : void
+            - IsNearOfPlayer(obj : BaseObject) : bool 
+            + OnActionReceived(actions : ActionBuffers ) : void
+            + Heuristic(in actionsOut : ActionBuffers) : void
+            + OnEpisodeBegin() : void
+        }
+        Agent <|-- AIAgent
+    }
+
+    package Obstacles <<Folder>>{
+        class Coin
+        {
+            + OnTriggerEnter2D(collision : Collider2D) : void
+        }
+        MonoBehaviour <|-- Coin
+
+        class DeadZoneProperty
+        {
+            + VelocityDirection : VelocityDirection
+        }
+        MonoBehaviour <|-- DeadZoneProperty
+
+        enum VelocityDirection
+        {
+            UpToDown
+            DownToUp
+            Flat
+            Any
+        }
+
+        class GameModeDefZone
+        {
+            + planeMode : PlayerController 
+            - OnTriggerEnter2D(other : Collider2D) : void
+        }
+        MonoBehaviour <|-- GameModeDefZone
+
+        class VictoryTrigger
+        {
+            + VictoryEvent() : void
+            + {static} Instance : VictoryTrigger
+            - OnTriggerEnter2D(collision : Collider2D) : void
+        }
+        MonoBehaviour <|-- VictoryTrigger
+    }
+
+    package Player <<Folder>>{
+        class CameraController
+        {
+            - topLimit : float
+            - bottomLimit : float
+            - verticalPadding : float
+            - startPosition : Vector3
+            - targetPosition : Vector3
+            + Player : Player
+            - Start() : void
+            + ResetPosition() : void
+            - FixedUpdate() : void
+        }
+        MonoBehaviour <|- CameraController
+
+        class Player
+        {
+            + PlayDelegate() : void
+            + {static} StartPlaying : event
+            + {static} StopPlaying : event
+            + {static} OnDie : event
+            + {static} OnWin : event
+            + {static} Instance : Player
+            + TimeScale : float
+            - rb : Rigidbody2D
+            - sparks : ParticleSystem
+            - spawnTime : float
+            - currentPrefabMode : PlayerController
+            + defaultMode : PlayerController
+            + currentMode : PlayerController
+            + GroundMask : LayerMask
+            + LifeTime : float
+            + IsGrounded : bool
+            + {static} Play(prefab : GameObject) : void
+            + {static} Die() : void
+            + {static} Win() : void
+            - Awake() : void
+            - Update() : void
+            + Destroy() : void
+            + Restart() : void
+            + SetControlMode(prefabMode : PlayerController) : void
+            - OnCollisionEnter2D(collider : Collision2D) : void
+            - OnCollisionExit2D(collider : Collision2D) : void
+        }
+        MonoBehaviour <|-- Player
+
+        abstract class PlayerController
+        {
+            + IsActive : bool
+            - Start() : void
+            # {abstract} InitControl() : void
+        }
+        MonoBehaviour <|-- PlayerController
+
+        class PlayerDeathHandler
+        {
+            + deadPrefab : PlayerController 
+            - OnTriggerEnter2D(other : Collider2D) : void
+            - Die() : void
+        }
+        MonoBehaviour <|-- PlayerDeathHandler
+
+        class PlayerSkinLoader
+        {
+            - PlayModeID : int
+            - skinMaterial : Material
+            - Start() : void
+        }
+        MonoBehaviour <|-- PlayerSkinLoader
+
+        package GameModes <<Folder>>{
+            class PlayerBall 
+            {
+                - rotationSpeed : float 
+                - reverseTimer : float 
+                - rb : Rigidbody2D 
+                # InitControl() : void
+                - Update() : void
+                - FixedUpdate() : void
+            }
+            PlayerController <|-- PlayerBall
+
+            class PlayerDeadControl
+            {
+                - spawnTime : float
+                - player : Player
+                # InitControl() : void
+                - Update() : void
+            }
+            PlayerController <|-- PlayerDeadControl
+
+            class PlayerJumpHandler
+            {
+                + moveSpeed : float
+                + jumpForce : float
+                + angularForce : float
+                - player : Player
+                - jumpCD : float
+                - rb : Rigidbody2D
+                - isGrounded : bool
+                - jumping : bool
+                # InitControl() : void
+                - Update() : void
+                - FixedUpdate() : void
+                + Jump() : void
+                - SnapAngle() : void
+                - IsGrounded() : bool
+            }
+            PlayerController <|-- PlayerJumpHandler
+
+            class PlayerLama
+            {
+                - rb : Rigidbody2D;
+                - spitTimer : float
+                + speed : float
+                + spitCooldown : float
+                + spitForce : float
+                + spitOffset : Vector2
+                + spitPrefab : GameObject
+                # InitControl() : void
+                - Update() : void
+            }
+            PlayerController <|-- PlayerLama
+
+            class PlayerShip
+            {
+                - currentLift : float
+                + lift : float
+                + gravity : float
+                + speed : float
+                - rb : Rigidbody2D
+                # InitControl() : void
+                - Update() : void
+                - FixedUpdate() : void
+                - OnCollisionEnter2D(collision : Collision2D) : void
+            }
+            PlayerController <|-- PlayerShip
+
+            class Spit
+            {
+                - OnTriggerEnter2D(collision : Collider2D) : void
+            }
+            MonoBehaviour <|-- Spit
+        }
+    }
+}
+
+@enduml

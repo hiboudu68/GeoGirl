@@ -1,0 +1,67 @@
+@startuml
+
+package Unity {
+    class MonoBehaviour
+    interface IPointerClickHandler
+}
+
+package UI{
+    abstract class BaseMenu
+    {
+        + abstract Show() : void
+        + abstract Hide() : void
+    }
+    MonoBehaviour <|-- BaseMenu
+    
+    package MainMenu{
+        class BtnEdit
+        {
+            + OnPointerClick(eventData : PointerEventData) : void
+        }
+        MonoBehaviour <|--- BtnEdit
+        IPointerClickHandler <|--- BtnEdit
+
+        class BtnExitGame
+        {
+            + OnPointerClick(eventData : PointerEventData) : void
+        }
+        MonoBehaviour <|--- BtnExitGame
+        IPointerClickHandler <|--- BtnExitGame
+
+        class BtnPlay
+        {
+            + OnPointerClick(eventData : PointerEventData) : void
+            - OnStopPlayingFromEditableLevels() : void
+            - OnStopPlayingFromLegacyLevelList() : void
+        }
+        MonoBehaviour <|--- BtnPlay
+        IPointerClickHandler <|--- BtnPlay
+
+        class BtnSkins
+        {
+            +  OnPointerClick(eventData : PointerEventData) : void
+        }
+        MonoBehaviour <|--- BtnSkins
+        IPointerClickHandler <|--- BtnSkins
+
+        class BtnStats
+        {
+            + OnPointerClick(eventData : PointerEventData) : void
+        }
+        MonoBehaviour <|--- BtnStats
+        IPointerClickHandler <|--- BtnStats
+
+        class MainMenuController
+        {
+            - btnSkins : Slidable
+            - btnEditor : Slidable
+            - btnStats : Slidable
+            - logo : Slidable
+            + Hide() : void
+            + Show() : void
+        }
+        BaseMenu <|--- MainMenuController
+    }
+}
+
+@enduml

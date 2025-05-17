@@ -1,0 +1,79 @@
+@startuml
+
+package Unity {
+    class MonoBehaviour
+    class NativeFileDialog
+    interface IPointerClickHandler
+}
+
+package UI {
+    package MapEditor{
+        package Buttons {
+            class BtnBackToEditableLevels
+            {
+                + OnPointerClick(eventData : PointerEventData) : void
+            }
+            MonoBehaviour <|-- BtnBackToEditableLevels
+            IPointerClickHandler <|-- BtnBackToEditableLevels
+
+            class BtnDeleteSelection
+            {
+                + OnPointerClick(eventData : PointerEventData) : void
+            }
+            MonoBehaviour <|-- BtnDeleteSelection
+            IPointerClickHandler <|-- BtnDeleteSelection
+
+            class BtnExport
+            {
+                + OnPointerClick(eventData : PointerEventData) : void
+            }
+            NativeFileDialog <|--- BtnExport
+            IPointerClickHandler <|-- BtnExport
+
+            class BtnPlayLevel
+            {
+                + OnPointerClick(eventData : PointerEventData) : void
+                - OnStopPlaying() : void
+            }
+            MonoBehaviour <|--- BtnPlayLevel
+            IPointerClickHandler <|-- BtnPlayLevel
+
+            class BtnRotateObject
+            {
+                + OnPointerClick(eventData : PointerEventData) : void
+            }
+            MonoBehaviour <|-- BtnRotateObject
+            IPointerClickHandler <|-- BtnRotateObject
+
+            class BtnSetMusic
+            {
+                + OnPointerClick(PointerEventData eventData) : void
+            }
+            NativeFileDialog <|-- BtnSetMusic
+            IPointerClickHandler <|-- BtnSetMusic
+
+            class BtnToggleColorObject
+            {
+                - mapEditor : MapEditorManager
+                - isVisible : bool
+                - primaryColorPicker : FlexibleColorPicker
+                - secondaryColorPicker : FlexibleColorPicker
+                + IsVisible : bool
+                - Start() : void
+                - Awake() : void
+                - OnSelectedObjectChanged(obj : BaseObject) : void
+                + CloseColors() : void
+                - SelectColors(ofObj : BaseObject) : void
+                + OnPrimaryColorChanged(color : Color) : void
+                + OnSecondaryColorChanged(color : Color) : void
+                + OnPointerClick(eventData : PointerEventData) : void
+            }
+            MonoBehaviour <|-- BtnToggleColorObject
+            IPointerClickHandler <|-- BtnToggleColorObject
+
+        }
+    }
+}
+
+
+@enduml

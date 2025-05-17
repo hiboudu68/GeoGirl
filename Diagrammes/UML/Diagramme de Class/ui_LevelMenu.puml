@@ -1,0 +1,45 @@
+@startuml
+skinparam groupInheritance 4
+
+package Unity {
+    class MonoBehaviour
+    interface IPointerClickHandler
+}
+
+package UI.Common { 
+    abstract class BaseMenu
+    {
+        + {abstract} Show() : void
+        + {abstract} Hide() : void
+    }
+    MonoBehaviour <|-- BaseMenu
+}
+
+package UI.LevelMenu { 
+
+    class BtnBack
+    {
+        + OnPointerClick(eventData : PointerEventData) : void
+    }
+    MonoBehaviour <|-- BtnBack
+    IPointerClickHandler <|-- BtnBack
+
+    class LevelMenu
+    {
+        - btnBack : Button 
+        - levelSlider : LevelSlider 
+        - btnBackRenderer : CanvasRenderer
+        + BtnBack : Slidable
+        + IsVisible : bool 
+        - Start() : void
+        - OnBtnBackAnimationEnds(slidable : Slidable) : void
+        - Update() : void
+        + Hide() : void
+        + Show() : void
+        + HideBack() : void
+    }
+    BaseMenu <|-- LevelMenu
+}
+
+
+@enduml

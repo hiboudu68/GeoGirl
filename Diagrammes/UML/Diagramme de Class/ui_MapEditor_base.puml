@@ -1,0 +1,73 @@
+@startuml
+skinparam groupInheritance 5
+
+package Unity {
+    class MonoBehaviour
+    interface IPointerClickHandler
+}
+
+package UI {
+
+    abstract class BaseMenu
+    {
+        + abstract Show() : void
+        + abstract Hide() : void
+    }
+    MonoBehaviour <|-- BaseMenu
+
+    package MapEditor{
+        class MapEditorManager
+        {
+            - {static} persistentPath : string
+            + ActivityEvent() : void
+            + TileEvent(tileData : TileData) : void
+            + SelectedObjectChanged : event
+            + SelectedTileChanged : event
+            + OnExit : event
+            + OnEdit : event
+            - displayGrid : bool
+            - gridObj : GameObject
+            - gameGrid : GameGrid
+            - _selectedObj : BaseObject
+            - _selectedTile : TileData
+            - saveRequestedCount : int
+            + SelectionFrameSprite : Sprite
+            + Rotate : byte
+            + Grid : GameGrid
+            + SelectedObject : BaseObject
+            + SelectedTile : TileData
+            - Awake() : void
+            - Start() : void
+            - OnStartPlaying() : void
+            - OnStopPlaying() : void
+            + Edit(levelData : Level) : MapEditorManager
+            + DefineMusic(filePath : string) : void
+            - OnSaveRequest(subject : BaseObject) : void
+            - Save(s : object) : void
+            + DisableRaycast() : void
+            + EnableRaycast() : void
+            + ToggleGrid() : void
+            + Hide() : void
+            + Show() : void
+        }
+        BaseMenu <|- MapEditorManager
+
+        class ObstacleList
+        {
+            - gridGroup : GridLayoutGroup
+            + OnPointerClick(eventData : PointerEventData) : void
+            - Start() : void
+        }
+        MonoBehaviour <|- ObstacleList
+        IPointerClickHandler <|- ObstacleList
+
+        class RayCastToggler
+        {
+            + SetValue(raycastTarget : bool) : void
+        }
+        MonoBehaviour <|- RayCastToggler
+    }
+}
+
+
+@enduml

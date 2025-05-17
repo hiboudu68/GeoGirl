@@ -1,0 +1,145 @@
+@startuml
+skinparam groupInheritance 2
+
+package Unity {
+    class MonoBehaviour
+    interface IPointerClickHandler
+}
+
+package UI.Common { 
+    abstract class BaseMenu
+    {
+        + {abstract} Show() : void
+        + {abstract} Hide() : void
+    }
+    MonoBehaviour <|-- BaseMenu
+
+    class BtnSound
+    {
+        - image : Image
+        - soundOffSprite : Sprite 
+        - soundOnSprite : Sprite 
+        - Start() : void 
+        - OnStartPlaying() : void
+        - OnStopPlaying() : void
+        + OnPointerClick(eventData : PointerEventData) : void
+        - UpdatePause() : void
+    }
+    MonoBehaviour <|-- BtnSound
+    IPointerClickHandler <|-- BtnSound
+
+    class NativeFileDialog 
+    {
+        - OFN_FILEMUSTEXIST = 0x00001000 : int
+        - OFN_PATHMUSTEXIST = 0x00000800 : int
+        - OFN_NOCHANGEDIR   = 0x00000008 : int
+        - OFN_EXPLORER      = 0x00080000 : int
+        - OFN_OVERWRITEPROMPT= 0x00000002 : int
+        + SaveFileDialog(defaultName : string, extension : string) : string
+        + OpenFileDialog(extension : string) : string
+    }
+    MonoBehaviour <|-- NativeFileDialog
+
+    class Slidable
+    {
+        + SlidableEvent(slidable : Slidable) : void
+        + OnAnimationEnds : event
+        - canvas : Canvas
+        - isHidding : bool
+        - isShowing : bool
+        - startPosition : Vector3
+        - currentOffset : Vector3
+        - currentScale : Vector3
+        + Offset : Vector3
+        + Scale : Vector3
+        - isHidden : bool
+        - speed : float
+        + IsVisible : bool
+        + CaptureStartPosition(currentOffset : Vector3) : void
+        + Show() : void
+        + Hide() : void
+        - Start() : void
+        - Update() : void
+    }
+    MonoBehaviour <|-- Slidable
+
+    class UIToggler
+    {
+        + UIToggleEvent(isVisible : bool) : void
+        + OnVisibilityChanged : event
+        - isVisible : bool
+        + IsVisible : bool
+        + Toggle() : void
+        - UpdateVisibility() : void
+        - OnValidate() : void
+    }
+    MonoBehaviour <|-- UIToggler
+
+    package LevelSlider {
+        class BtnLevelSwap
+        {
+            - visiblePosition : Vector3
+            - invisiblePosition : Vector3
+            - targetPosition : Vector3
+            - direction : Direction
+            - Start() : void
+            - Update() : void
+            + OnPointerClick(eventData : PointerEventData) : void
+            + Show() : void
+            + Hide() : void
+        }
+        MonoBehaviour <|-- BtnLevelSwap
+        IPointerClickHandler <|-- BtnLevelSwap
+
+        enum Direction
+        {
+            RightToLeft
+            LeftToRight
+        }
+
+        class LevelComponent 
+        {
+            + TargetPosition : Vector3
+            + StartPosition : Vector3
+            + LevelInfos : Level
+            - levelName : Text
+            - progressText : Text
+            - bonusText : Text
+            - progressImage : Image
+            + SetInfos(levelInfos : Level) : void
+            + SetInfos(name : string, collectedCoins : int , totalCollectableCoinsCount : int, progression : float) : void
+        }
+        MonoBehaviour <|-- LevelComponent
+
+        class LevelSlider
+        {
+            - LevelPrefab : GameObject
+            - transitionCurve : AnimationCurve 
+            - animationSpeed : float
+            - levelComponents : LevelComponent[]
+            - levels : Level[]
+            - currentLevel : LevelComponent
+            - levelIndex : int 
+            - addOffset : Vector3
+            - elapsedTime : float 
+            - isShowing : bool 
+            - isHidding : bool 
+            - isAnimating : bool 
+            + IsVisible : bool 
+            + Level : Level 
+            - NextLevel : LevelComponent
+            - PreviousLevel : LevelComponent
+            + GetLevel() : Level
+            + SetLevels(levels : Level[]) : void
+            + HideButtons() : void
+            + ShowButtons() : void
+            - Update() : void
+            + Next() : void
+            + Previous() : void
+        }
+        MonoBehaviour <|-- LevelSlider 
+    }
+}
+
+
+@enduml

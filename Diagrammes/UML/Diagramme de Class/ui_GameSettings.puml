@@ -1,0 +1,43 @@
+@startuml
+skinparam groupInheritance 2
+
+package Unity {
+    class MonoBehaviour
+}
+
+package UI.GameSettings { 
+    class GameSettings
+    {
+        + {static} MoveSpeed : float
+        + {static} JumpForce : float
+        + {static} AngularForce  : float
+        + {static} Lift  : float
+        + {static} ShipGravity  : float
+        + {static} CubeHitboxSize  : float
+        - jumpSlider : Slider
+        - jumpText : Text 
+        - angularSlider : Slider
+        - angularText : Text 
+        - moveSlider : Slider
+        - moveText : Text 
+        - liftSlider : Slider
+        - liftText : Text 
+        - shipGravitySlider : Slider
+        - shipGravityText : Text 
+        - cubeHitboxSizeSlider : Slider
+        - cubeHitboxSizeText : Text 
+        - Awake() : void
+        - RetrieveTexts() : void
+        - RetrieveSliders() : void
+        + OnSpeedChanged() : void
+        + OnRotationChanged() : void
+        + OnJumpStrengthChanged() : void
+        + OnLiftChanged() : void
+        + OnShipGravityChanged() : void
+        + OnCubeHitboxSizeChanged() : void
+    }
+    MonoBehaviour <|-- GameSettings
+}
+
+
+@enduml

@@ -16,8 +16,8 @@ https://www.youtube.com/watch?v=ws0d86h3TMY&ab_channel=SabrinaAlHammuti
 ## 🚀 Lancer le jeu
 
 Pour lancer le jeu 2 options s'offre à vous:
-1) Télécharger le .zip du lien https://www.swisstransfer.com/d/7da93047-9b68-4c4f-a0ba-bae069822b4f.
-   Puis dézipper le .zip et éxécuter le fichier GeoGirl.exe pour lancer le jeu.
+1) Télécharger le .zip du lien https://www.swisstransfer.com/d/7da93047-9b68-4c4f-a0ba-bae069822b4f
+   Puis dézipper le .zip et exécuter le fichier GeoGirl.exe pour lancer le jeu.
 
 2) Forker le projet puis installer le en local.
    Aller dans le dossier Executable/ puis éxécuter le fichier GeoGirl.exe pour lancer le jeu.
@@ -30,7 +30,7 @@ Pour lancer le jeu 2 options s'offre à vous:
    ```bash
    GeoGirl/
     ├── Diagrammes/   # Diagrammes UML et Gantt du jeu
-    ├── Executable/   # Executables du projet
+    ├── Executable/   # Executable du projet
         ├── GeoGirl.exe
     └── Projet/       # Code et Assets du projet
    ```

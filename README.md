@@ -6,7 +6,10 @@
 
 ## 📸 Gameplay
 
-[vidéo]
+https://www.youtube.com/watch?v=ws0d86h3TMY&ab_channel=SabrinaAlHammuti
+
+![image](https://github.com/user-attachments/assets/2e9c550b-a18e-43ad-8247-520a501f7232)
+
 
 ---
 

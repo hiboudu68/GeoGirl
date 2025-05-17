@@ -15,11 +15,12 @@ https://www.youtube.com/watch?v=ws0d86h3TMY&ab_channel=SabrinaAlHammuti
 
 ## 🚀 Lancer le jeu
 
-Télécharger et exécuter :
+Pour lancer le jeu 2 options s'offre à vous:
+1) Télécharger le .zip du lien https://www.swisstransfer.com/d/e4f0924f-43f4-4bd0-aee9-e08f921aadae.
+   Puis dézipper le .zip et éxécuter le fichier GeoGirl.exe pour lancer le jeu.
 
-```bash
-GeoGirl.exe
-```
+2) Forker le projet puis installer le en local.
+   Aller dans le dossier Executable/ puis éxécuter le fichier GeoGirl.exe pour lancer le jeu.
 
 > ⚠️ Pas besoin d’ouvrir le projet Unity – l’exécutable contient le build du jeu.
 ---

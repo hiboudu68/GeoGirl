@@ -28,9 +28,10 @@ GeoGirl.exe
 
    ```bash
    GeoGirl/
-    ├── GeoGirl.exe
-    ├── code/         # Scripts du projet
-    └── diagrammes/   # Diagrammes UML et Gantt du jeu
+    ├── Diagrammes/   # Diagrammes UML et Gantt du jeu
+    ├── Executable/   # Executables du projet
+        ├── GeoGirl.exe
+    └── Projet/       # Code et Assets du projet
    ```
 
 ## 🛠️ Technologies utilisées
@@ -40,6 +41,11 @@ GeoGirl.exe
 - Python
 
 ---
+## IA 
+L'IA est disponible uniquement dans la partie édition des niveaux en appuyant sur le bouton IA comme sur l'image ci-dessous:
+
+![image](https://github.com/user-attachments/assets/2532fcb8-2069-4d14-86f9-1e42d4a96968)
+
 
 ## 👤 Développeurs
 

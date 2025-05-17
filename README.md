@@ -16,7 +16,7 @@ https://www.youtube.com/watch?v=ws0d86h3TMY&ab_channel=SabrinaAlHammuti
 ## 🚀 Lancer le jeu
 
 Pour lancer le jeu 2 options s'offre à vous:
-1) Télécharger le .zip du lien [https://www.swisstransfer.com/d/e4f0924f-43f4-4bd0-aee9-e08f921aadae](https://www.swisstransfer.com/d/7ae60b8b-fe33-428e-9597-15543ca6f9a1).
+1) Télécharger le .zip du lien https://www.swisstransfer.com/d/7da93047-9b68-4c4f-a0ba-bae069822b4f.
    Puis dézipper le .zip et éxécuter le fichier GeoGirl.exe pour lancer le jeu.
 
 2) Forker le projet puis installer le en local.

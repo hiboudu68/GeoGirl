@@ -19,51 +19,54 @@ public class LevelSlider : MonoBehaviour
     private bool isAnimating = false;
 
     public bool IsVisible => isShowing;
-    public Level Level => currentLevel.LevelInfos;
+    public Level Level => currentLevel != null ? currentLevel.LevelInfos : null;
     private LevelComponent NextLevel
     {
-        get => levelIndex == levelComponents.Count - 1 || levelComponents.Count == 1 ? levelComponents[0] : levelComponents[levelIndex + 1];
+        get => levelComponents.Count == 0 ? null : levelIndex == levelComponents.Count - 1 || levelComponents.Count == 1 ? levelComponents[0] : levelComponents[levelIndex + 1];
     }
     private LevelComponent PreviousLevel
     {
-        get => levelIndex == 0 || levelComponents.Count == 1 ? levelComponents[levelComponents.Count - 1] : levelComponents[levelIndex - 1];
+        get => levelComponents.Count == 0 ? null : levelIndex == 0 || levelComponents.Count == 1 ? levelComponents[levelComponents.Count - 1] : levelComponents[levelIndex - 1];
     }
-    public Level GetLevel() => currentLevel.LevelInfos;
+    public Level GetLevel() => currentLevel == null ? null : currentLevel.LevelInfos;
 
     public void SetLevels(Level[] levels)
     {
         if (isShowing)
         {
-            Vector3 offset = levelComponents.Count * addOffset;
+            FindAnyObjectByType<GameGrid>().Clear();
+            foreach (LevelComponent component in levelComponents)
+                Destroy(component.gameObject);
+
+            levelComponents.Clear();
+
+            Vector3 offset = Vector3.zero;
             foreach (Level level in levels)
             {
-                if (levelComponents.FirstOrDefault(x => x.LevelInfos.Id == level.Id) == null)
-                {
-                    GameObject levelObj = GameObject.Instantiate(LevelPrefab);
-                    LevelComponent lvlComponent = levelObj.GetComponent<LevelComponent>();
-                    lvlComponent.StartPosition = offset;
-                    lvlComponent.TargetPosition = offset;
-                    levelComponents.Add(lvlComponent);
+                GameObject levelObj = GameObject.Instantiate(LevelPrefab);
+                LevelComponent lvlComponent = levelObj.GetComponent<LevelComponent>();
+                lvlComponent.StartPosition = offset;
+                lvlComponent.TargetPosition = offset;
+                levelComponents.Add(lvlComponent);
 
-                    lvlComponent.SetInfos(level);
-                    levelObj.transform.parent = transform;
-                    levelObj.transform.localPosition = offset;
-                    offset += addOffset;
-                }
+                lvlComponent.SetInfos(level);
+                levelObj.transform.parent = transform;
+                levelObj.transform.localPosition = offset;
+                offset += addOffset;
             }
 
-            LevelComponent[] components = levelComponents.ToArray();
-            foreach (LevelComponent component in components)
+            levelIndex = 0;
+            if (levelComponents.Count == 0)
             {
-                if (levels.FirstOrDefault(x => x.Id == component.LevelInfos.Id) == null)
-                {
-                    if (component.LevelInfos.Id == GetLevel().Id)
-                        Next();
-
-                    levelComponents.Remove(component);
-                    Destroy(component.gameObject);
-                }
+                currentLevel = null;
+                return;
             }
+
+            currentLevel = levelComponents[0];
+            currentLevel.transform.localScale = Vector3.zero;
+            currentLevel.transform.localScale = Vector3.zero;
+            FindAnyObjectByType<GameGrid>().LoadLevel(currentLevel.LevelInfos);
+
         }
 
         this.levels = levels;
@@ -104,18 +107,14 @@ public class LevelSlider : MonoBehaviour
         if (levelComponents.Count == 0)
         {
             currentLevel = null;
+            FindAnyObjectByType<GameGrid>().Clear();
             return;
         }
 
         currentLevel = levelComponents[0];
         currentLevel.transform.localScale = Vector3.zero;
         FindAnyObjectByType<GameGrid>().LoadLevel(currentLevel.LevelInfos);
-
-        if (levelComponents.Count > 0)
-        {
-            currentLevel = levelComponents[0];
-            currentLevel.transform.localScale = Vector3.zero;
-        }
+        currentLevel.transform.localScale = Vector3.zero;
 
         foreach (BtnLevelSwap btn in GetComponentsInChildren<BtnLevelSwap>())
             btn.Show();

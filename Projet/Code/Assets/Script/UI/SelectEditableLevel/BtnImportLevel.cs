@@ -11,12 +11,11 @@ public class BtnImportLevel : NativeFileDialog, IPointerClickHandler
         {
             LevelReader reader = new LevelReader(file);
             reader.levelData.Id = Guid.NewGuid().ToString();
-            LevelsManager.CreateLevel(reader.levelData);
             LevelWriter writer = new LevelWriter(reader.levelData, Application.persistentDataPath);
-            Debug.Log(reader.objects.Count + " objects imported !");
             writer.WriteObjs(reader.objects.ToArray());
             writer.SetMusicData(reader.MusicBytes);
             writer.Close();
+            LevelsManager.CreateLevel(reader.levelData);
         }
     }
 }

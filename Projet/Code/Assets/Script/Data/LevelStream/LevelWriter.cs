@@ -58,7 +58,6 @@ public class LevelWriter
         const int objSize = 27;
 
         byte[] buffer = new byte[objSize * objs.Length + 4];
-        Debug.Log("Writing " + objs.Length + " objs");
         BitConverter.GetBytes(objs.Length).CopyTo(buffer, 0);
 
         for (int i = 0; i < objs.Length; i++)
@@ -96,6 +95,7 @@ public class LevelWriter
         BitConverter.GetBytes(obj.Y).CopyTo(buffer, offset + 8);
         BitConverter.GetBytes(obj.Z).CopyTo(buffer, offset + 12);
         buffer[offset + 16] = obj.Rotation;
+
         BitConverter.GetBytes(tileId).CopyTo(buffer, offset + 17);
 
         buffer[offset + 21] = (byte)(obj.PrimaryColor.r * 255);

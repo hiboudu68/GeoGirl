@@ -19,14 +19,16 @@ public class PlayerShip : PlayerController
     void Update()
     {
         rb.gravityScale = GameSettings.ShipGravity;
-        bool isPressing = Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0);
-
         transform.rotation = Quaternion.Euler(0, 0, rb.linearVelocity.y * 2);
+        Lift(false);
+    }
+    public void Lift(bool ignoreInputs = true)
+    {
+        bool isPressing = ignoreInputs || Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0);
         if (IsActive && isPressing)
             currentLift = Mathf.Lerp(currentLift, GameSettings.Lift, Time.deltaTime * 5f);
         else currentLift = Mathf.Lerp(currentLift, 0, Time.deltaTime * 50f);
     }
-
     void FixedUpdate()
     {
         rb.AddForce(Vector3.up * currentLift, ForceMode2D.Force);

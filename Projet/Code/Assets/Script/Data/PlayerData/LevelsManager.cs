@@ -31,7 +31,7 @@ public class LevelsManager
     }
     public static void DeleteLevel(Level editableLevel)
     {
-        if (editableLevel.IsMainLevel)
+        if (editableLevel == null || editableLevel.IsMainLevel)
             return;
 
         List<Level> levelList = new List<Level>(GetEditableLevels());

@@ -21,6 +21,7 @@ public class GameGrid : MonoBehaviour
     private List<LevelObject> pendingObjects = new();
     public GameObject PlayerPrefab;
     public GameObject AIPrefab;
+    public GameObject AITrainerPrefab;
     public float cellSize = 50f;
     [HideInInspector]
     public byte[] musicBytes;
@@ -45,9 +46,8 @@ public class GameGrid : MonoBehaviour
         FindAnyObjectByType<MainMenuController>().Hide();
 
         Level[] levels = LevelsManager.GetEditableLevels();
-        LoadLevel(levels[0]);
-
-        Player.Play(PlayerPrefab);
+        LoadLevel(levels[4]);
+        Player.Play(AITrainerPrefab);
     }
     void Start()
     {
@@ -59,6 +59,14 @@ public class GameGrid : MonoBehaviour
         sprite.material = new Material(TilesManager.Instance.SpriteMaterial);
         sprite.material.SetColor("_ColorA", PlayerSkinPreferences.GetPrimaryColor(1));
         sprite.material.SetColor("_ColorB", PlayerSkinPreferences.GetSecondaryColor(1));
+
+        GameObject floorDeadzone = new GameObject("FloorDeadzone");
+        floorDeadzone.transform.position = Vector3.down * 10f + Vector3.right * 5000f;
+        BoxCollider2D collider = floorDeadzone.AddComponent<BoxCollider2D>();
+        collider.isTrigger = true;
+        collider.size = new Vector2(10000f, 2f);
+
+        floorDeadzone.AddComponent<DeadZoneProperty>().VelocityDirection = VelocityDirection.Any;
 
         //RunForAI();
     }
@@ -99,6 +107,9 @@ public class GameGrid : MonoBehaviour
     }
     public void LoadLevel(Level levelData)
     {
+        if (Player.Instance != null)
+            Player.Instance.Destroy();
+
         if (currentLevel != null && currentLevel.Id == levelData.Id)
             return;
 
@@ -122,15 +133,27 @@ public class GameGrid : MonoBehaviour
     }
     public void Clear()
     {
+        foreach (Player player in FindObjectsByType<Player>(FindObjectsSortMode.None))
+            Destroy(player.gameObject);
+
+        if (objects.Count == 0)
+            return;
+
         bool wasSaving = SaveEnabled;
         Camera.main.transform.position = Vector3.zero;
 
         SaveEnabled = false;
-        MusicLoader.Instance.StopMusic();
+        if (MusicLoader.Instance != null)
+            MusicLoader.Instance.StopMusic();
+
         musicBytes = null;
         while (objects.Count > 0)
             RemoveObject(objects[0]);
         SaveEnabled = wasSaving;
+
+        if (Player.Instance != null)
+            Player.Instance.Destroy();
+
         Cleared?.Invoke();
     }
     public void Close()
@@ -140,6 +163,9 @@ public class GameGrid : MonoBehaviour
     }
     public void OnStartPlaying()
     {
+        if (MusicLoader.Instance == null)
+            return;
+
         _isPlaying = true;
         Camera.main.transform.position = Vector2.zero;
         startSprite.SetActive(false);
@@ -248,7 +274,8 @@ public class GameGrid : MonoBehaviour
                 Z = worldPosition.z,
                 Rotation = rotation,
                 PrimaryColor = PrimaryColor,
-                SecondaryColor = SecondaryColor
+                SecondaryColor = SecondaryColor,
+                TileID = tileData.Id
             };
 
             objects.Add(gameObj);

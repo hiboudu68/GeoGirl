@@ -17,7 +17,7 @@ public class ObstacleList : MonoBehaviour, IPointerClickHandler
 
         foreach (TileData tile in TilesManager.Instance.GetTiles())
         {
-            GameObject tileDemo = new GameObject(tile.name);
+            GameObject tileDemo = new GameObject("TileDemo");
             tileDemo.AddComponent<RectTransform>().pivot = Vector2.zero;
             tileDemo.transform.localScale = Vector3.one * 0.5f;
 

@@ -13,6 +13,7 @@ public class BtnPlayAI : MonoBehaviour, IPointerClickHandler
     }
     private void OnStopPlaying()
     {
+        Debug.Log("Stop Playing");
         Player.StopPlaying -= OnStopPlaying;
         GetComponentInParent<MapEditorManager>()
             .Show();

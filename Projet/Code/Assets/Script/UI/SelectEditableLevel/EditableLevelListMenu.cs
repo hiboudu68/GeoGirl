@@ -34,6 +34,9 @@ public class EditableLevelListMenu : BaseMenu
     }
     public void StartEditLevel(Level lvl)
     {
+        if (lvl == null)
+            return;
+
         levelSlider.HideButtons();
         transform.parent.GetComponentInChildren<MainMenuController>()
             .GetComponentInChildren<BtnPlay>()
@@ -69,6 +72,7 @@ public class EditableLevelListMenu : BaseMenu
                 .GetComponentInChildren<BtnPlay>()
                 .GetComponent<Slidable>().Show();
         }
+
         levelSlider.SetLevels(LevelsManager.GetEditableLevels());
         levelSlider.ShowButtons();
         btnBack.gameObject.SetActive(true);

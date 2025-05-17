@@ -1,1 +1,16 @@
-{"Levels":[{"Id":"8db7c8eb-7317-489a-bc1a-875c70394050","IsMainLevel":true,"Name":"Glass Rose","TotalBonusCount":3},{"Id":"46bd4d55-9269-464b-982d-72ed4cc92cf8","IsMainLevel":true,"Name":"000Zero Enkai","TotalBonusCount":0}]}
+{
+    "Levels": [
+        {
+            "Id": "8db7c8eb-7317-489a-bc1a-875c70394050",
+            "IsMainLevel": true,
+            "Name": "Glass Rose",
+            "TotalBonusCount": 3
+        },
+        {
+            "Id": "46bd4d55-9269-464b-982d-72ed4cc92cf8",
+            "IsMainLevel": true,
+            "Name": "000Zero Enkai",
+            "TotalBonusCount": 3
+        }
+    ]
+}

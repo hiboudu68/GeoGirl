@@ -48,6 +48,7 @@
     <Analyzer Include="F:\Unity\6000.0.34f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Script\Environment\BaseObject.cs" />
     <Compile Include="Assets\Script\UI\Popup\Confirm\BtnCancelPopup.cs" />
     <Compile Include="Assets\Script\UI\VictoryMenu\VictoryMenu.cs" />
     <Compile Include="Assets\Script\UI\SkinMenu\GameModeList.cs" />
@@ -145,7 +146,6 @@
     <Compile Include="Assets\Script\Data\LevelStream\LevelReader.cs" />
     <Compile Include="Assets\Script\UI\MapEditor\Buttons\BtnPlayAI.cs" />
     <Compile Include="Assets\Script\Data\PlayerData\LevelsManager.cs" />
-    <Compile Include="Assets\Script\UI\MapEditor\Objects\BaseObject.cs" />
     <Compile Include="Assets\Script\GamePlay\Player\PlayerDeathHandler.cs" />
     <Compile Include="Assets\Script\UI\SkinMenu\SkinContainer.cs" />
     <Compile Include="Assets\Script\GamePlay\Player\GameModes\PlayerJumpHandler.cs" />

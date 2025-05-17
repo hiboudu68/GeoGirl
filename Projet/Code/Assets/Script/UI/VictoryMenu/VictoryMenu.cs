@@ -20,6 +20,7 @@ public class VictoryMenu : BaseMenu
     void Start()
     {
         Instance = this;
+        Player.OnWin += Show;
     }
     public override void Show()
     {
@@ -36,6 +37,11 @@ public class VictoryMenu : BaseMenu
         HorizontalLayoutGroup layout = GetComponentInChildren<HorizontalLayoutGroup>();
         GameGrid grid = FindAnyObjectByType<GameGrid>();
         IEnumerable<BaseObject> coins = grid.Objects.Where(x => x.GetComponentInChildren<Coin>(true) != null);
+
+        foreach (GameObject coin in coinSprites)
+            Destroy(coin);
+        coinSprites.Clear();
+
         foreach (BaseObject obj in coins)
         {
             GameObject img = new GameObject();

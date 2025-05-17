@@ -86,9 +86,13 @@ public class MusicLoader : MonoBehaviour
 
                 if (www.result == UnityWebRequest.Result.Success)
                 {
-                    AudioClip clip = DownloadHandlerAudioClip.GetContent(www);
-                    src.clip = clip;
-                    src.Play();
+                    try
+                    {
+                        AudioClip clip = DownloadHandlerAudioClip.GetContent(www);
+                        src.clip = clip;
+                        src.Play();
+                    }
+                    catch { }
                 }
             }
         }

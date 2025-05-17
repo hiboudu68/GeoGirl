@@ -16,6 +16,9 @@ public class BtnPlay : MonoBehaviour, IPointerClickHandler
         }
         else
         {
+            if (editableLevelMenu.IsVisible && editableLevelMenu.GetSelectedLevel() == null)
+                return;
+
             GetComponent<Slidable>().Hide();
             if (editableLevelMenu.IsVisible)
             {

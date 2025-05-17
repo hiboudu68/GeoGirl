@@ -43,6 +43,7 @@ public class Player : MonoBehaviour
     }
     public static void Win()
     {
+        Debug.Log("Win !");
         OnWin?.Invoke();
     }
     void Awake()
@@ -66,7 +67,9 @@ public class Player : MonoBehaviour
             Destroy(currentMode);
         }
 
-        currentMode = gameObject.AddComponent<WinMode>();
+        if (gameObject != null)
+            currentMode = gameObject.AddComponent<WinMode>();
+
         OnWin -= OnVictory;
     }
     void Update()
@@ -81,13 +84,22 @@ public class Player : MonoBehaviour
     public bool IsGrounded => Physics2D.Raycast(transform.position, Vector2.up * (rb.gravityScale < 0 ? 1 : -1f), 1f, GroundMask).collider != null;
     public void Destroy()
     {
-        StopPlaying?.Invoke();
+        Debug.Log("Destroying...");
+        if (Player.Instance == null)
+            return;
+
         Player.Instance = null;
         currentPrefabMode = null;
+
         Destroy(gameObject);
+        OnWin -= OnVictory;
+        StopPlaying?.Invoke();
     }
     public void Restart()
     {
+        if (currentMode is WinMode)
+            return;
+        Debug.Log("Restarted");
         Statistics.CurrentLevelCoinsCount = 0;
         Statistics.CurrentLevelJumpCount = 0;
         spawnTime = Time.time;
@@ -99,7 +111,9 @@ public class Player : MonoBehaviour
 
         currentPrefabMode = null;
         Camera.main.GetComponent<CameraController>().ResetPosition();
-        MusicLoader.Instance.RestartMusic();
+        if (MusicLoader.Instance != null)
+            MusicLoader.Instance.RestartMusic();
+
         SetControlMode(defaultMode);
 
         foreach (Delegate del in OnWin.GetInvocationList())
@@ -123,7 +137,7 @@ public class Player : MonoBehaviour
         if (prefabMode == null) return;
 
         currentMode = GameObject.Instantiate(prefabMode.gameObject).GetComponent<PlayerController>();
-        currentMode.transform.parent = transform;
+        currentMode.transform.SetParent(transform);
         currentMode.transform.localPosition = Vector3.zero;
     }
 

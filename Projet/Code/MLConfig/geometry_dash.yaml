@@ -2,8 +2,8 @@ behaviors:
   GeometryDashTrainer:
     trainer_type: ppo
     hyperparameters:
-      batch_size: 1024
-      buffer_size: 20480
+      batch_size: 4096
+      buffer_size: 81920
       learning_rate: 0.0003
       beta: 0.0015
       epsilon: 0.2
@@ -18,6 +18,6 @@ behaviors:
         gamma: 0.99
         strength: 1.0
     max_steps: 50e6
-    time_horizon: 4000
-    summary_freq: 2000
+    time_horizon: 50000
+    summary_freq: 10000
     threaded: true

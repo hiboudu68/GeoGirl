@@ -7,8 +7,11 @@ public class PlayerDeathHandler : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         DeadZoneProperty props = other.gameObject.GetComponent<DeadZoneProperty>();
-        if (props != null && Player.Instance != null)
+        if (props != null && Player.Instance != null && Player.Instance.LifeTime > 0.25f)
         {
+            if (Player.Instance.currentMode is not PlayerJumpHandler && !props.DieIfGrounded)
+                return;
+
             float velocity = GetComponentInParent<Rigidbody2D>().linearVelocity.y;
             if (Mathf.Abs(velocity) > 200f || Mathf.Abs(velocity) < 0.005f)
                 velocity = 0f;
@@ -64,7 +67,6 @@ public class PlayerDeathHandler : MonoBehaviour
     {
         if (Player.Instance.currentMode is WinMode)
         {
-            VictoryMenu.Instance.Show();
             Player.Win();
         }
         else

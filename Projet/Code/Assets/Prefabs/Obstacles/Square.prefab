@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 619757990086828224}
   - component: {fileID: 7920434813972360266}
   - component: {fileID: 444327657094965061}
-  - component: {fileID: -3149598016698850320}
   m_Layer: 3
   m_Name: Square
   m_TagString: Ground
@@ -103,18 +102,6 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
---- !u!114 &-3149598016698850320
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6852891599332514880}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1855ba675cdd9a241ab7dd6b9b9aefbd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2526269176669276060
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -137,7 +124,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919172890044433958, guid: f7c6b85859fb64f9d95e3a1ca556b405, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.41
+      value: -0.45
       objectReference: {fileID: 0}
     - target: {fileID: 919172890044433958, guid: f7c6b85859fb64f9d95e3a1ca556b405, type: 3}
       propertyPath: m_LocalPosition.y
@@ -197,7 +184,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8107963896759216572, guid: f7c6b85859fb64f9d95e3a1ca556b405, type: 3}
       propertyPath: m_EdgeRadius
-      value: 0.05
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8107963896759216572, guid: f7c6b85859fb64f9d95e3a1ca556b405, type: 3}
+      propertyPath: m_CompositeOperation
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -369,7 +360,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919172890044433958, guid: f7c6b85859fb64f9d95e3a1ca556b405, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.41
+      value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: 919172890044433958, guid: f7c6b85859fb64f9d95e3a1ca556b405, type: 3}
       propertyPath: m_LocalPosition.y
@@ -429,7 +420,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8107963896759216572, guid: f7c6b85859fb64f9d95e3a1ca556b405, type: 3}
       propertyPath: m_EdgeRadius
-      value: 0.05
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

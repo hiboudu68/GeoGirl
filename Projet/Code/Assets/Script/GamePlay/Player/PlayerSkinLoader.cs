@@ -10,7 +10,8 @@ public class PlayerSkinLoader : MonoBehaviour
     {
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.material = new Material(skinMaterial);
-        spriteRenderer.transform.localScale = Vector3.one * 0.8f;
+        //if (spriteRenderer.transform.localScale == Vector3.one)
+        //spriteRenderer.transform.localScale = Vector3.one * 0.8f;
 
         spriteRenderer.sprite = PlayerSkinPreferences.GetSkin(PlayModeID).Icon;
         spriteRenderer.material.SetColor("_ColorA", PlayerSkinPreferences.GetPrimaryColor(PlayModeID));

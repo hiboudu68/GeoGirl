@@ -21,13 +21,17 @@ public class PlayerBall : PlayerController
     void Update()
     {
         transform.Rotate(0, 0, -(rotationSpeed * rb.gravityScale) * Time.deltaTime);
+        Reverse(false);
+    }
+    public void Reverse(bool ignoreInputs = true)
+    {
         if (reverseTimer > 0f)
         {
             reverseTimer -= Time.deltaTime;
             return;
         }
 
-        bool isPressing = Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0);
+        bool isPressing = ignoreInputs || Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0);
         if (isPressing)
         {
             rb.gravityScale = -rb.gravityScale;

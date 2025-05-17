@@ -4,7 +4,8 @@ public class VictoryTrigger : MonoBehaviour
 {
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponentInParent<Player>() == Player.Instance)
+        if (collision.gameObject.GetComponentInParent<Player>() == Player.Instance ||
+            collision.gameObject.GetComponent<Player>() == Player.Instance)
         {
             PlayerStats.SetLevelStats(new()
             {

@@ -29,5 +29,7 @@ public class MainMenuController : BaseMenu
         grid.Close();
         grid.ShowStartSprite();
 
+        if (Player.Instance)
+            Player.Instance.Destroy();
     }
 }

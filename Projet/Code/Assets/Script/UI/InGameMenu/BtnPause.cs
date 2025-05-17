@@ -41,6 +41,9 @@ public class BtnPause : MonoBehaviour, IPointerClickHandler
     }
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (Player.Instance == null || Player.Instance.currentMode is WinMode)
+            return;
+
         if (pauseMenu.GetComponent<UIToggler>().IsVisible)
         {
             pauseMenu.Hide();

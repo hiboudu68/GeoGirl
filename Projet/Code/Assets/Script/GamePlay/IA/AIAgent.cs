@@ -8,7 +8,6 @@ using UnityEngine;
 public class AIAgent : Agent
 {
     private GameGrid grid;
-    private bool isAlive = true;
     private float lastX;
 
     void Start()
@@ -32,10 +31,17 @@ public class AIAgent : Agent
         VictoryTrigger victory = FindAnyObjectByType<VictoryTrigger>();
         if (victory != null)
             SetReward(Player.Instance.transform.position.x - victory.transform.position.x);
+        Debug.Log("DIE");
         EndEpisode();
     }
     public override void CollectObservations(VectorSensor sensor)
     {
+        if (Player.Instance == null)
+        {
+            Destroy(this);
+            return;
+        }
+
         Vector3 playerPos = Player.Instance.transform.position;
         sensor.AddObservation(playerPos);
         foreach (BaseObject obj in grid.Objects)
@@ -55,11 +61,19 @@ public class AIAgent : Agent
         float curX = Player.Instance.transform.position.x;
         if (actions.DiscreteActions[0] == 1)
         {
-            if (Player.Instance.IsGrounded)
+            switch (Player.Instance.currentMode)
             {
-                (Player.Instance.currentMode as PlayerJumpHandler).Jump();
+                case PlayerJumpHandler jumper:
+                    if (Player.Instance.IsGrounded)
+                        jumper.Jump();
+                    break;
+                case PlayerShip ship:
+                    ship.Lift();
+                    break;
+                case PlayerBall ball:
+                    ball.Reverse();
+                    break;
             }
-            else AddReward(-0.5f);
         }
         else
         {

@@ -24,6 +24,7 @@ public class PauseMenu : BaseMenu
             slidable.Hide();
 
         Player.StartPlaying += OnStartPlaying;
+        Player.StopPlaying += OnStartPlaying;
     }
     private void OnStartPlaying()
     {
@@ -40,7 +41,6 @@ public class PauseMenu : BaseMenu
     {
         //if (toggler.IsVisible || isOpen)
         //return;
-
         GameGrid grid = FindAnyObjectByType<GameGrid>();
         IEnumerable<BaseObject> coins = grid.Objects.Where(x => x.GetComponentInChildren<Coin>(true) != null);
         int collectedCoinsCount = coins.Count(x => !x.gameObject.activeInHierarchy);
@@ -55,8 +55,12 @@ public class PauseMenu : BaseMenu
         TimeSpan time = TimeSpan.FromSeconds(Player.Instance.LifeTime);
         TimeText.text = time.Minutes + " min " + time.Seconds + "s";
         toggler.IsVisible = true;
+        TimeText.gameObject.SetActive(true);
+        TryCountText.gameObject.SetActive(true);
+        JumpCountText.gameObject.SetActive(true);
         foreach (Slidable slidable in GetComponentsInChildren<Slidable>(true))
             slidable.Show();
+
     }
     public override void Hide()
     {

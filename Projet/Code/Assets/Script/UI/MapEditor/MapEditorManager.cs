@@ -138,21 +138,6 @@ public class MapEditorManager : BaseMenu
         foreach (RayCastToggler rayCastToggler in GetComponentsInChildren<RayCastToggler>())
             rayCastToggler.SetValue(true);
     }
-    public void ToggleGrid()
-    {
-        displayGrid = !displayGrid;
-        if (displayGrid)
-        {
-            if (gridObj.GetComponent<UIGrid>() == null)
-                gridObj.AddComponent<UIGrid>();
-        }
-        else
-        {
-            gridObj = GetComponentInChildren<UIGrid>(true).gameObject;
-            if (gridObj.GetComponent<UIGrid>() != null)
-                Destroy(gridObj.GetComponent<UIGrid>());
-        }
-    }
     public override void Hide()
     {
         OnExit?.Invoke();
@@ -163,6 +148,9 @@ public class MapEditorManager : BaseMenu
     {
         GetComponent<UIToggler>().IsVisible = true;
         GetComponentInChildren<BtnToggleColorObject>().CloseColors();
+        gameGrid.ShowStartSprite();
         gameGrid.SaveEnabled = true;
+        if (Player.Instance)
+            Player.Instance.Destroy();
     }
 }

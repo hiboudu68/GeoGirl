@@ -49,6 +49,7 @@ public class LevelReader
             PrimaryColor = new(ReadByte() / 255f, ReadByte() / 255f, ReadByte() / 255f),
             SecondaryColor = new(ReadByte() / 255f, ReadByte() / 255f, ReadByte() / 255f)
         };
+
         objects.Add(obj);
     }
     private string ReadString()
